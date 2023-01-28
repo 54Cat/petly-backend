@@ -1,10 +1,12 @@
-const express = require('express')
-const logger = require('morgan')
-const cors = require('cors')
-require("dotenv").config()
+const express = require('express');
+const logger = require('morgan');
+const cors = require('cors');
+require("dotenv").config();
 
-const usersRouter = require("./routes/api/users")
-const contactsRouter = require("./routes/api/contacts")
+// const userRouter = require("./routes/api/user");
+// const newsRouter = require("./routes/api/news");
+// const noticesRouter = require("./routes/api/notices");
+// const friendsRouter = require("./routes/api/friends");
 
 const app = express()
 
@@ -15,8 +17,10 @@ app.use(cors())
 app.use(express.json())
 app.use(express.static("public"))
 
-app.use('/api/users', usersRouter)
-app.use('/api/contacts', contactsRouter)
+// app.use('/api/user', userRouter)
+// app.use('/api/news', newsRouter)
+// app.use('/api/notices', noticesRouter)
+// app.use('/api/friends', friendsRouter)
 
 app.use((req, res) => {
   res.status(404).json({ message: 'Not found' })

@@ -50,7 +50,7 @@ const noticeSchema = new Schema({
 noticeSchema.post("save", handleMongooseError);
 
 // Joi схема на добавление данных в поля 
-const addSchema = Joi.object({
+const addNoticeSchema = Joi.object({
     title: Joi.string().trim().min(2).max(48).required(),
     name: Joi.string().trim().min(2).max(16).required(),
     birthdate: Joi.date().format("DD/MM/YYYY").required(),
@@ -69,7 +69,7 @@ const schemaUpdateFavorite = Joi.object({
 });
 
 
-const schemas = { addSchema, schemaUpdateFavorite };
+const schemas = { addNoticeSchema, schemaUpdateFavorite };
 
 // создаём модель на основе mongoose схемы для коллекции petly
 const Notice = model('petly', noticeSchema)

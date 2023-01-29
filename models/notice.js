@@ -3,6 +3,8 @@ const Joi = require('joi');
 
 const { handleMongooseError } = require('../helpers')
 
+const locationRegexp = /^[a-z\d\s\-\\.\\,]*$/i;
+
 // схемa mongoose
 const noticeSchema = new Schema({
     title: {
@@ -22,6 +24,17 @@ const noticeSchema = new Schema({
     },
     location: {
         type: String,
+        match: locationRegexp,
+    },
+    comments: {
+        type: String,
+    },
+    price: {
+        type: Number,
+    },
+    sex: {
+        type: String, 
+        enum: ['Male','Femail'],
     },
     favorite: {
         type: Boolean,
@@ -42,7 +55,11 @@ const addSchema = Joi.object({
     name: Joi.string().trim().min(2).max(16).required(),
     birthdate: Joi.date().format("DD/MM/YYYY").required(),
     breed: Joi.string().min(2).max(24).required(),
-    // location: Joi.string().trim().regex(/^[a-z\d\s\-\.\,]*$/i).max(100).required(),
+    location: Joi.string().trim().pattern(locationRegexp).required(),
+    comments: Joi.string().trim().min(8).max(120).required(),
+    // price: Joi.number().positive(),
+    price: Joi.number().greater(Joi.ref('0')).required(),
+    sex: Joi.string().required(),
 
     
 });
@@ -51,10 +68,11 @@ const schemaUpdateFavorite = Joi.object({
   favorite: Joi.boolean().required(),
 });
 
+
 const schemas = { addSchema, schemaUpdateFavorite };
 
-// создаём модель на основе mongoose схемы
-const Notice = model('notice', noticeSchema)
+// создаём модель на основе mongoose схемы для коллекции petly
+const Notice = model('petly', noticeSchema)
 
 
 module.exports = { Notice, schemas };

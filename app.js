@@ -8,7 +8,7 @@ const swaggerDocument = require('./swagger.json');
 
 const authRouter = require('./routes/api/auth');
 // const userRouter = require("./routes/api/user");
-// const newsRouter = require("./routes/api/news");
+const newsRouter = require("./routes/api/news");
 // const noticesRouter = require("./routes/api/notices");
 const friendsRouter = require("./routes/api/friends");
 
@@ -23,7 +23,7 @@ app.use(express.static('public'));
 
 app.use('/api/auth', authRouter);
 // app.use('/api/user', userRouter)
-// app.use('/api/news', newsRouter)
+app.use('/api/news', newsRouter)
 // app.use('/api/notices', noticesRouter)
 app.use('/api/friends', friendsRouter)
 

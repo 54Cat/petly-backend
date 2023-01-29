@@ -1,9 +1,11 @@
 const { Schema, model } = require('mongoose');
 const Joi = require('joi');
 
-const { handleMongooseError } = require('../helpers')
+const { handleSaveErrors } = require('../helpers')
 
 const locationRegexp = /^[a-z\d\s\-\\.\\,]*$/i;
+const categories = ['sell', 'lost', 'in good hands'];
+const sexChose = ['Male', 'Femail'];
 
 // схемa mongoose
 const noticeSchema = new Schema({
@@ -34,8 +36,17 @@ const noticeSchema = new Schema({
     },
     sex: {
         type: String, 
-        enum: ['Male','Femail'],
+        enum: sexChose,   
     },
+    category: {
+        type: String,
+        enum: categories,
+        required: true,
+    },
+    imageURL: {
+        type: String,
+        required:true,        
+  },  
     favorite: {
         type: Boolean,
         default: false,
@@ -47,7 +58,7 @@ const noticeSchema = new Schema({
     }
 }, { versionKey: false, timestamps: true });
 // схема бросает ошибку с нужным статусом
-noticeSchema.post("save", handleMongooseError);
+noticeSchema.post("save", handleSaveErrors);
 
 // Joi схема на добавление данных в поля 
 const addNoticeSchema = Joi.object({
@@ -60,7 +71,9 @@ const addNoticeSchema = Joi.object({
     // price: Joi.number().positive(),
     price: Joi.number().greater(Joi.ref('0')).required(),
     sex: Joi.string().required(),
-
+    category: Joi.string().valid(...categories).required(),
+    sexChose: Joi.string().valid(...sexChose).required(),
+    imageURL: Joi.string().required(),
     
 });
 // Joi схема на обновление поля favorite

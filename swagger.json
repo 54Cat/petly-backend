@@ -162,8 +162,44 @@
                     }
                 }
             }
-        }
+        },
 
+        "/news": {
+            "get": {
+                "tags": ["News"],
+                "summary": "News",
+                "parameters": [
+                    {
+                        "name": "search",
+                        "in": "query",
+                        "description": "news search by keyword",
+                        "required": false,
+                        "type": "string"
+                    }
+                ],
+
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/NewsResponse"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Not found",
+                        "content": {}
+                    },
+                    "500": {
+                        "description": "Server error",
+                        "content": {}
+                    }
+                }
+            }
+        }
     },
     "components": {
         "schemas": {
@@ -279,7 +315,7 @@
                     "_id": {
                         "type": "string",
                         "description": "id",
-                        "example": "63b2a1aac7d7c8862b0f594f"
+                        "example": "63d6d644668d0100c66b9e0e"
                     },
                     "title": {
                         "type": "string",
@@ -379,6 +415,38 @@
                         "example": "hello@happypaw.ua"
                     }
                 }
+            },
+
+            "NewsResponse": {
+                "type": "object",
+                "properties": {
+                    "_id": {
+                        "type": "string",
+                        "description": "id",
+                        "example": "63d6d660668d0100c66b9e1a"
+                    },
+                    "title": {
+                        "type": "string",
+                        "description": "title",
+                        "example": "Обережно, кліщі! Як уберегти улюбленця від неприємностей?"
+                    },
+                    "url": {
+                        "type": "string",
+                        "description": "url",
+                        "example": "https://www.kmlvm.com.ua/oberezhno-klishhi-yak-uberegty-ulyublentsya-vid-nepryyemnostej/"
+                    },
+                    "description": {
+                        "type": "string",
+                        "description": "description",
+                        "example": "Травневі прогулянки з улюбленцем не лише приємні, але й потребують пильності. З початком теплої пори року активізуються кліщі, і треба бути уважним, щоб уберегти свого песика чи котика від дуже серйозних неприємностей зі здоров`ям. Чим небезпечні кліщі? Кліщі переносять збудника паразитарного захворювання крові. Якщо тварина показує ознаки укусу кліщем – слід негайно звернутися до лікаря, зволікання може коштувати життя тварині. Які ознаки укусу кліща? Слід мерщій звернутися до ветеринара, якщо ви помітили що тварина: стала млявою, постійно лежить відмовляється від їжі її сеча стала темного кольору. Захворювання крові, яке виникає після укусу кліща, лікується, проте важливе значення має час. І профілактика, до речі, щоб убезпечити котика чи песика від таких неприємностей, можна використати наступні засоби: краплі на холку, спреї, спеціальні нашийники, пігулки."
+                    },
+                    "date": {
+                        "type": "string",
+                        "description": "date",
+                        "example": "2022-05-04"
+                    }
+                }
+                
             }
         },
 

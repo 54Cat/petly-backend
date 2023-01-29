@@ -1,0 +1,393 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "version": "0.0.1",
+        "title": "Swagger Petly ",
+        "description": "API Documents for Petly Server"
+    },
+    "consumes": ["application/json", "multipart/form-data"],
+    "produces": ["application/json"],
+    "servers": [{ "url": "http://localhost:4000/api" }],
+    "tags": [
+        {
+            "name": "Auth",
+            "description": "register, login, logout, updateDataUser"
+        },
+        {
+            "name": "Services Sidebar",
+            "description": "our friends"
+        },
+        {
+            "name": "News",
+            "description": "news list"
+        },
+        {
+            "name": "Notices",
+            "description": "receiving, adding and deleting ads"
+        },
+        {
+            "name": "User",
+            "description": "my account, my pets, add new my pet, delete my pet"
+        }
+    ],
+
+    "paths": {
+        "/auth/register": {
+            "post": {
+                "tags": ["Auth"],
+                "summary": "User registration",
+                "parameters": [],
+                "requestBody": {
+                    "description": "Registration's object",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/RegistrationRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Successful registration",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/RegistrationResponse"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad request (invalid request body)",
+                        "content": {}
+                    },
+                    "409": {
+                        "description": "Email already exists",
+                        "content": {}
+                    }
+                }
+            }
+        },
+        "/auth/login": {
+            "post": {
+                "tags": ["Auth"],
+                "summary": "User login",
+                "parameters": [],
+                "requestBody": {
+                    "description": "User's object",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/LoginRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful login",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/LoginResponse"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad request (invalid request body)",
+                        "content": {}
+                    },
+                    "401": {
+                        "description": "Email or password incorrect",
+                        "content": {}
+                    }
+                }
+            }
+        },
+        "/auth/logout": {
+            "get": {
+                "tags": ["Auth"],
+                "summary": "Logout user",
+                "parameters": [],
+                "security": [{ "Bearer": [] }],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/LogoutResponse"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "content": {}
+                    }
+                }
+            }
+        },
+
+        "/friends ": {
+            "get": {
+                "tags": ["Services Sidebar"],
+                "summary": "Our friends",
+                "parameters": [],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/FriendsResponse"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Not found",
+                        "content": {}
+                    },
+                    "500": {
+                        "description": "Server error",
+                        "content": {}
+                    }
+                }
+            }
+        }
+
+    },
+    "components": {
+        "schemas": {
+            "RegistrationRequest": {
+                "type": "object",
+                "required": ["email", "password", "name",  "city", "phone"],
+                "properties": {
+                    "email": {
+                        "type": "string",
+                        "description": "User's email",
+                        "format": "email"
+                    },
+                    "password": {
+                        "type": "string",
+                        "description": "User's password",
+                        "example": "qwerty123"
+                    },
+                    "name": {
+                        "type": "string",
+                        "description": "User's name",
+                        "example": "Mango"
+                    },
+                    "phone": {
+                        "type": "string",
+                        "description": "User's phone",
+                        "format": "phone",
+                        "example": "+380000000000"
+                    },
+                    "city": {
+                        "type": "string",
+                        "description": "User's city and region",
+                        "example": "Brovary, Kyiv"
+                    }
+                }
+            },
+            "RegistrationResponse": {
+                "type": "object",
+                "properties": {
+                    "email": {
+                        "type": "string",
+                        "description": "User's email",
+                        "format": "email"
+                    },
+                    "name": {
+                        "type": "string",
+                        "description": "User's name",
+                        "example": "Mango"
+                    },
+                    "phone": {
+                        "type": "string",
+                        "description": "User's phone",
+                        "format": "phone",
+                        "example": "+380000000000"
+                    },
+                    "city": {
+                        "type": "string",
+                        "description": "User's city and region",
+                        "example": "Brovary, Kyiv"
+                    }
+                }
+            },
+
+            "LoginRequest": {
+                "type": "object",
+                "required": ["email", "password"],
+                "properties": {
+                    "email": {
+                        "type": "string",
+                        "description": "User's email",
+                        "format": "email"
+                    },
+                    "password": {
+                        "type": "string",
+                        "description": "User's password",
+                        "example": "qwerty123"
+                    }
+                }
+            },
+            "LoginResponse": {
+                "type": "object",
+                "properties": {
+                    "email": {
+                        "type": "string",
+                        "description": "User's email",
+                        "format": "email"
+                    },
+                    "name": {
+                        "type": "string",
+                        "description": "User's name",
+                        "example": "Mango"
+                    },
+                    "token": {
+                        "type": "string",
+                        "description": "User's token",
+                        "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzYjJiN2VlYmNlZjEzOGRmZTkxOGU3MyIsImlhdCI6MTY3Mjg0OTUzNiwiZXhwIjoxNjcyODc4MzM2fQ.2O1A2OFCpuH00pMM1GgA-Dhy1kKCNEHDd80LrAyE8ac"
+                    }
+                }
+            },
+
+            "LogoutResponse": {
+                "type": "object",
+                "properties": {
+                    "message": {
+                        "type": "string",
+                        "example": "Logout successful"
+                    }
+                }
+            },
+
+            "FriendsResponse": {
+                "type": "object",
+                "properties": {
+                    "_id": {
+                        "type": "string",
+                        "description": "id",
+                        "example": "63b2a1aac7d7c8862b0f594f"
+                    },
+                    "title": {
+                        "type": "string",
+                        "description": "title",
+                        "example": "Happy Paw"
+                    },
+                    "url": {
+                        "type": "string",
+                        "description": "url",
+                        "example": "https://happypaw.ua/ua"
+                    },
+                    "addressUrl": {
+                        "type": "string",
+                        "description": "addressUrl",
+                        "example": "https://goo.gl/maps/3RyzTYBvMr9WQWCC6"
+                    },
+                    "imageUrl": {
+                        "type": "string",
+                        "description": "imageUrl",
+                        "example": "https://storage.googleapis.com/kidslikev2_bucket/pets-support/images/sponsors/frame_288.png"
+                    },
+                    "address": {
+                        "type": "string",
+                        "description": "address",
+                        "example": "Київ, вулиця Шота Руставелі, 44 (3-й поверх, офіс 7)"
+                    },
+                    "workDays": {
+                        "type": "array",
+                        "items": {
+                            "type": "object",
+                            "properties": {
+                                "isOpen": {
+                                    "type": "boolean",
+                                    "description": "isOpen",
+                                    "example": "true"
+                                },
+                                "from": {
+                                    "type": "string",
+                                    "description": "opens at",
+                                    "example": "09:00"
+                                },
+                                "to": {
+                                    "type": "string",
+                                    "description": "closes at",
+                                    "example": "17:00"
+                                }
+                            },
+                            "example":[
+                                {
+                                    "isOpen": true,
+                                    "from": "09:00",
+                                    "to": "17:00"
+                                },
+                                {
+                                    "isOpen": true,
+                                    "from": "09:00",
+                                    "to": "17:00"
+                                },
+                                {
+                                    "isOpen": true,
+                                    "from": "09:00",
+                                    "to": "17:00"
+                                },
+                                {
+                                    "isOpen": true,
+                                    "from": "09:00",
+                                    "to": "17:00"
+                                },
+                                {
+                                    "isOpen": true,
+                                    "from": "09:00",
+                                    "to": "17:00"
+                                },
+                                {
+                                    "isOpen": true,
+                                    "from": "09:00",
+                                    "to": "17:00"
+                                },
+                                {
+                                    "isOpen": true,
+                                    "from": "09:00",
+                                    "to": "17:00"
+                                }
+                            ]
+                        }
+                    },
+                    "phone": {
+                        "type": "string",
+                        "description": "phone",
+                        "format": "phone",
+                        "example": "+380442900329"
+                    },
+                    "email": {
+                        "type": "string",
+                        "description": "email",
+                        "format": "email",
+                        "example": "hello@happypaw.ua"
+                    }
+                }
+            }
+        },
+
+        "securitySchemes": {
+            "Bearer": {
+                "type": "http",
+                "scheme": "bearer",
+                "bearerFormat": "JWT"
+            }
+        }
+    }
+}

@@ -1,4 +1,4 @@
-const User = require('../../models/user');
+const { User } = require('../../models/user');
 
 const getCurrent = async (req, res) => {
     const { id: owner } = req.user;

@@ -14,7 +14,12 @@ router.post(
 
 router.post('/login', validateBody(loginSchema), ctrlWrapper(ctrl.login));
 
-router.get('/current', authenticate, ctrlWrapper(ctrl.getCurrent));
+router.put(
+    '/:contactId',
+    authenticate,
+    validateBody(registerSchema),
+    ctrlWrapper(ctrl.updateContact)
+);
 
 router.post('/logout', authenticate, ctrlWrapper(ctrl.logout));
 

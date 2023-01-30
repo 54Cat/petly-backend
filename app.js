@@ -7,7 +7,7 @@ const swaggerUi = require('swagger-ui-express');
 const swaggerDocument = require('./swagger.json');
 
 const authRouter = require('./routes/api/auth');
-// const userRouter = require("./routes/api/user");
+const usersRouter = require('./routes/api/users');
 // const newsRouter = require("./routes/api/news");
 // const noticesRouter = require("./routes/api/notices");
 // const friendsRouter = require("./routes/api/friends");
@@ -22,7 +22,7 @@ app.use(express.json());
 app.use(express.static('public'));
 
 app.use('/api/auth', authRouter);
-// app.use('/api/user', userRouter)
+app.use('/api/users', usersRouter);
 // app.use('/api/news', newsRouter)
 // app.use('/api/notices', noticesRouter)
 // app.use('/api/friends', friendsRouter)

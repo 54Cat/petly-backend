@@ -1,10 +1,9 @@
 const { User } = require('../../models');
 
 const getCurrent = async (req, res) => {
-    const { id: owner } = req.user;
-
-    const result = await User.findById(owner);
-    res.json(result);
+    const { id } = req.user;
+    const user = await User.findById(id);
+    res.json(user);
 };
 
 module.exports = getCurrent;

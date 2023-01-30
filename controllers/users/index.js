@@ -1,9 +1,11 @@
-const register = require("./register")
-const login = require("./login")
-const logout = require("./logout")
+const getCurrent = require('./getCurrent');
+const addPet = require('./addPet');
+const deletePet = require('./deletePet');
+const getAllPets = require('./getAllPets');
 
 module.exports = {
-  register,
-  login,
-  logout
-}
+    getCurrent,
+    addPet,
+    deletePet,
+    getAllPets,
+};

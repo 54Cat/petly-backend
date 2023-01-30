@@ -1,8 +1,8 @@
-const addMotice = require('./addNotice');
+const addNotice = require('./addNotice');
 
 
 
 
 module.exports = {
-    addMotice,
+    addNotice,
 }

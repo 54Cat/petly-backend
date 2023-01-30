@@ -46,7 +46,7 @@ const noticeSchema = new Schema({
     imageURL: {
         type: String,
         required:true,        
-  },  
+    },  
     favorite: {
         type: Boolean,
         default: false,
@@ -57,6 +57,7 @@ const noticeSchema = new Schema({
     required: true,  
     }
 }, { versionKey: false, timestamps: true });
+
 // схема бросает ошибку с нужным статусом
 noticeSchema.post("save", handleSaveErrors);
 
@@ -70,22 +71,20 @@ const addNoticeSchema = Joi.object({
     comments: Joi.string().trim().min(8).max(120).required(),
     // price: Joi.number().positive(),
     price: Joi.number().greater(Joi.ref('0')).required(),
-    sex: Joi.string().required(),
     category: Joi.string().valid(...categories).required(),
-    sexChose: Joi.string().valid(...sexChose).required(),
+    sex: Joi.string().valid(...sexChose).required(),
     imageURL: Joi.string().required(),
     
 });
+
 // Joi схема на обновление поля favorite
 const schemaUpdateFavorite = Joi.object({
   favorite: Joi.boolean().required(),
 });
 
-
 const schemas = { addNoticeSchema, schemaUpdateFavorite };
 
 // создаём модель на основе mongoose схемы для коллекции petly
 const Notice = model('petly', noticeSchema)
-
 
 module.exports = { Notice, schemas };

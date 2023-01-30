@@ -2,7 +2,11 @@ const express = require('express');
 const ctrl = require('../../controllers/auth');
 const { ctrlWrapper } = require('../../helpers');
 const { validateBody, authenticate } = require('../../middlewares');
-const { registerSchema, loginSchema } = require('../../schemas');
+const {
+    registerSchema,
+    loginSchema,
+    updateUserSchema,
+} = require('../../schemas');
 
 const router = express.Router();
 
@@ -14,10 +18,10 @@ router.post(
 
 router.post('/login', validateBody(loginSchema), ctrlWrapper(ctrl.login));
 
-router.put(
+router.patch(
     '/:contactId',
     authenticate,
-    validateBody(registerSchema),
+    validateBody(updateUserSchema),
     ctrlWrapper(ctrl.updateContact)
 );
 

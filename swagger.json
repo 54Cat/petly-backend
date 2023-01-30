@@ -133,6 +133,77 @@
             }
         },
 
+        "/user": {
+            "get": {
+                "tags": ["User"],
+                "summary": "User info and his pets info",
+                "parameters": [],
+                "security": [{ "Bearer": [] }],
+                "responses": {
+                    "200": {
+                        "description": "Saccses",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/UserInfoResponse"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "content": {}
+                    },
+                    "403": {
+                        "description": "Invalid token",
+                        "content": {}
+                    }
+                }
+            },
+            "patch": {
+                "tags": ["User"],
+                "summary": "Update user info",
+                "parameters": [],
+                "security": [{ "Bearer": [] }],
+                "requestBody": {
+                    "description": "User's object",
+                    "required": true,
+                    "content": {
+                        "multipart/form-data": {
+                            "schema": {
+                                "$ref": "#/components/schemas/UpdateUserRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Saccses",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/UpdateUserResponse"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad request",
+                        "content": {}
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "content": {}
+                    },
+                    "403": {
+                        "description": "Invalid token",
+                        "content": {}
+                    }
+                }
+            }
+        },
+
+
         "/friends ": {
             "get": {
                 "tags": ["Services Sidebar"],
@@ -205,7 +276,7 @@
         "schemas": {
             "RegistrationRequest": {
                 "type": "object",
-                "required": ["email", "password", "name",  "city", "phone"],
+                "required": ["email", "password", "name", "city", "phone"],
                 "properties": {
                     "email": {
                         "type": "string",
@@ -309,6 +380,183 @@
                 }
             },
 
+            "UserInfoResponse": {
+                "type": "object",
+                "properties": {
+                    "user": {
+                        "type": "object",
+                        "properties": {
+                            "_id": {
+                                "type": "string",
+                                "description": "user id",
+                                "example": "63b2b7eebcef138dfe918e73"
+                            },
+                            "email": {
+                                "type": "string",
+                                "description": "User's email",
+                                "format": "email"
+                            },
+                            "name": {
+                                "type": "string",
+                                "description": "User's name",
+                                "example": "Mango"
+                            },
+                            "phone": {
+                                "type": "string",
+                                "description": "User's phone",
+                                "format": "phone",
+                                "example": "+380000000000"
+                            },
+                            "city": {
+                                "type": "string",
+                                "description": "User's city and region",
+                                "example": "Brovary, Kyiv"
+                            },
+                            "birthday": {
+                                "type": "string",
+                                "description": "User birthday",
+                                "example": "01.01.1999"
+                            },
+                            "avatarURL": {
+                                "type": "string",
+                                "description": "User avatar",
+                                "example": "https://as1.ftcdn.net/v2/jpg/02/59/39/46/1000_F_259394679_GGA8JJAEkukYJL9XXFH2JoC3nMguBPNH.jpg"
+                            }
+                        }
+                    },
+                    "pets": {
+                        "type": "array",
+                        "items": {
+                            "properties": {
+                                "_id": {
+                                    "type": "string",
+                                    "description": "id",
+                                    "example": "63b548d5471bb460e28dc813"
+                                },
+                                "name": {
+                                    "type": "string",
+                                    "description": "Pet name",
+                                    "example": "Roky"
+                                },
+                                "birthday": {
+                                    "type": "string",
+                                    "description": "Pet of birthday",
+                                    "example": "01.01.2022"
+                                },
+                                "breed": {
+                                    "type": "string",
+                                    "description": "Breed of dogs",
+                                    "example": "beagle"
+                                },
+                                "avatarURL": {
+                                    "type": "string",
+                                    "description": "image pet",
+                                    "example": "https://www.akc.org/wp-content/uploads/2016/06/Beagle-standing-in-a-frosty-field-on-a-cold-morning.jpg"
+                                },
+                                "comments": {
+                                    "type": "string",
+                                    "description": "comments",
+                                    "example": "Beagles were bred for hunting"
+                                },
+                                "owner": {
+                                    "type": "string",
+                                    "description": "ID owner this pet",
+                                    "example": "63b2b7eebcef138dfe918e73"
+                                },
+                                "createdAt": {
+                                    "type": "string",
+                                    "description": "date of creation",
+                                    "example": "2022-01-04T09:37:25.604Z"
+                                },
+                                "updatedAt": {
+                                    "type": "string",
+                                    "description": "date of update",
+                                    "example": "2022-01-04T09:37:25.604Z"
+                                }
+                            }
+                        }
+                    }
+                }
+                    
+            },
+            "UpdateUserRequest": {
+                "type": "object",
+                "properties": {
+                    "email": {
+                        "type": "string",
+                        "description": "User's email",
+                        "format": "email"
+                    },
+                    "name": {
+                        "type": "string",
+                        "description": "User's name",
+                        "example": "Mango"
+                    },
+                    "phone": {
+                        "type": "string",
+                        "description": "User's phone",
+                        "format": "phone",
+                        "example": "+380000000000"
+                    },
+                    "city": {
+                        "type": "string",
+                        "description": "User's city and region",
+                        "example": "Brovary, Kyiv"
+                    },
+                    "birthday": {
+                        "type": "string",
+                        "description": "User birthday",
+                        "example": "01.01.1999"
+                    },
+                    "avatarURL": {
+                        "type": "string",
+                        "description": "User avatar",
+                        "example": "https://as1.ftcdn.net/v2/jpg/02/59/39/46/1000_F_259394679_GGA8JJAEkukYJL9XXFH2JoC3nMguBPNH.jpg"
+                    }
+                }
+            },
+            "UpdateUserResponse": {
+                "type": "object",
+                "properties": {
+                    "user": {
+                        "type": "object",
+                        "properties": {
+                            "email": {
+                                "type": "string",
+                                "description": "User's email",
+                                "format": "email"
+                            },
+                            "name": {
+                                "type": "string",
+                                "description": "User's name",
+                                "example": "Mango"
+                            },
+                            "phone": {
+                                "type": "string",
+                                "description": "User's phone",
+                                "format": "phone",
+                                "example": "+380000000000"
+                            },
+                            "city": {
+                                "type": "string",
+                                "description": "User's city and region",
+                                "example": "Brovary, Kyiv"
+                            },
+                            "birthday": {
+                                "type": "string",
+                                "description": "User birthday",
+                                "example": "01.01.1999"
+                            },
+                            "avatarURL": {
+                                "type": "string",
+                                "description": "User avatar",
+                                "example": "https://as1.ftcdn.net/v2/jpg/02/59/39/46/1000_F_259394679_GGA8JJAEkukYJL9XXFH2JoC3nMguBPNH.jpg"
+                            }
+                        }
+                    }
+                }
+            },
+
             "FriendsResponse": {
                 "type": "object",
                 "properties": {
@@ -363,7 +611,7 @@
                                     "example": "17:00"
                                 }
                             },
-                            "example":[
+                            "example": [
                                 {
                                     "isOpen": true,
                                     "from": "09:00",
@@ -446,7 +694,6 @@
                         "example": "2022-05-04"
                     }
                 }
-                
             }
         },
 

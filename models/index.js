@@ -1,5 +1,5 @@
-const { Pet } = require("./pet")
-const { User } = require("./user")
+const Pet = require("./pet")
+const User = require("./user")
 const { Friend } = require("./friends")
 const { News } = require("./news")
 const { Notice}= require("./notice")

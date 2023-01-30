@@ -65,7 +65,7 @@ noticeSchema.post("save", handleSaveErrors);
 const addNoticeSchema = Joi.object({
     title: Joi.string().trim().min(2).max(48).required(),
     name: Joi.string().trim().min(2).max(16).required(),
-    birthdate: Joi.date().format("DD/MM/YYYY").required(),
+    birthdate: Joi.date().required(),
     breed: Joi.string().min(2).max(24).required(),
     location: Joi.string().trim().pattern(locationRegexp).required(),
     comments: Joi.string().trim().min(8).max(120).required(),

@@ -7,7 +7,7 @@ const { petSchema } = require('../../schemas');
 
 const router = express.Router();
 
-router.get('/current', ctrlWrapper(ctrl.getCurrent));
+router.get('/current', authenticate, ctrlWrapper(ctrl.getCurrent));
 
 router.post(
     '/pets',

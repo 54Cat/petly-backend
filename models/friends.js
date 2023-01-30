@@ -32,7 +32,7 @@ const friendsSchema = new Schema(  {
         type: String,
         match: emailRegexp,
     }
-})
+}, { versionKey: false, timestamps: true })
 
 friendsSchema.post("save", handleSaveErrors)
 

@@ -21,7 +21,7 @@ const newsSchema = new Schema(  {
         required: true,
     },
     
-})
+}, { versionKey: false, timestamps: true })
 
 newsSchema.post("save", handleSaveErrors)
 

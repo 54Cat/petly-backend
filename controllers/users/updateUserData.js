@@ -1,10 +1,10 @@
 const { User } = require('../../models/user');
 const { RequestError } = require('../../helpers');
 
-const updateContact = async (req, res) => {
-    const { contactId } = req.params;
-    const updatedContact = req.body;
-    const result = await User.findByIdAndUpdate(contactId, updatedContact, {
+const updateUserData = async (req, res) => {
+    const { userId } = req.params;
+    const updatedUser = req.body;
+    const result = await User.findByIdAndUpdate(userId, updatedUser, {
         new: true,
     });
     if (!result) {
@@ -14,4 +14,4 @@ const updateContact = async (req, res) => {
     return res.json(result);
 };
 
-module.exports = updateContact;
+module.exports = updateUserData;

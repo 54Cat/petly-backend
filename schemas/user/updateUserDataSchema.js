@@ -1,6 +1,6 @@
 const Joi = require('joi').extend(require('@joi/date'));
 
-const updateUserSchema = Joi.object({
+const updateUserDataSchema = Joi.object({
     email: Joi.string().email(),
     name: Joi.string(),
     birthday: Joi.date().format('DD.MM.YYYY').utc(),
@@ -8,4 +8,4 @@ const updateUserSchema = Joi.object({
     phone: Joi.string().pattern(/^\+380\d{9}$/, 'numbers'),
 });
 
-module.exports = updateUserSchema;
+module.exports = updateUserDataSchema;

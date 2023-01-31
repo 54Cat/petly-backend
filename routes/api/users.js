@@ -1,13 +1,20 @@
 const express = require('express');
-
 const { users: ctrl } = require('../../controllers');
 const { ctrlWrapper } = require('../../helpers');
 const { validateBody, authenticate } = require('../../middlewares');
-const { petSchema } = require('../../schemas');
+const { updateUserDataSchema, petSchema } = require('../../schemas');
 
 const router = express.Router();
 
 router.get('/current', authenticate, ctrlWrapper(ctrl.getCurrent));
+
+
+router.patch(
+    '/:contactId',
+    authenticate,
+    validateBody(updateUserDataSchema),
+    ctrlWrapper(ctrl.updateUserData)
+);
 
 router.post(
     '/pets',

@@ -1,9 +1,9 @@
 const loginSchema = require('./loginSchema');
 const registerSchema = require('./registerSchema');
-const petSchema = require('./petSchema');
+const updateUserSchema = require('./updateUserSchema');
 
 module.exports = {
     loginSchema,
     registerSchema,
-    petSchema,
+    updateUserSchema,
 };

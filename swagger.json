@@ -11,7 +11,7 @@
     "tags": [
         {
             "name": "Auth",
-            "description": "register, login, logout, updateDataUser"
+            "description": "register, login, logout"
         },
         {
             "name": "Services Sidebar",
@@ -19,7 +19,7 @@
         },
         {
             "name": "News",
-            "description": "news list"
+            "description": "news"
         },
         {
             "name": "Notices",
@@ -27,7 +27,7 @@
         },
         {
             "name": "User",
-            "description": "my account, my pets, add new my pet, delete my pet"
+            "description": "my account with my pets, update user data, update pet data, add new my pet, delete my pet"
         }
     ],
 
@@ -133,6 +133,7 @@
             }
         },
 
+
         "/user/current": {
             "get": {
                 "tags": ["User"],
@@ -161,12 +162,19 @@
                 }
             }
         },
-
-        "/user/:userID": {
+        "/user/{userId}": {
             "patch": {
                 "tags": ["User"],
                 "summary": "Update user info",
-                "parameters": [],
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "userId",
+                        "required": true,
+                        "type": "string",
+                        "description": "Users ID"
+                    }
+                ],
                 "security": [{ "Bearer": [] }],
                 "requestBody": {
                     "description": "User's object",
@@ -205,7 +213,6 @@
                 }
             }
         },
-
         "/user/pets": {
             "post": {
                 "tags": ["User"],
@@ -240,7 +247,7 @@
                         "content": {}
                     },
                     "401": {
-                        "description": "Not authorized.Please,provide a token",
+                        "description": "Unauthorized",
                         "content": {}
                     },
                     "403": {
@@ -250,18 +257,18 @@
                 }
             }
         },
-        "/user/pets/{id}": {
+        "/user/pets/{petId}": {
             "delete": {
                 "tags": ["User"],
                 "summary": "Delete User pets",
                 "description": "Delete User pets",
                 "parameters": [
                     {
-                        "name": "id",
                         "in": "path",
-                        "description": "User pets Id",
+                        "name": "petId",
                         "required": true,
-                        "type": "string"
+                        "type": "string",
+                        "description": "Users pets ID"
                     }
                 ],
                 "security": [{ "Bearer": [] }],
@@ -281,7 +288,7 @@
                         "content": {}
                     },
                     "401": {
-                        "description": "Not authorized.Please,provide a token",
+                        "description": "Unauthorized",
                         "content": {}
                     },
                     "403": {
@@ -289,7 +296,7 @@
                         "content": {}
                     },
                     "404": {
-                        "description": "failure, pet with id not found",
+                        "description": "Not found",
                         "content": {}
                     }
                 }
@@ -328,6 +335,7 @@
             }
         },
 
+
         "/news": {
             "get": {
                 "tags": ["News"],
@@ -364,6 +372,7 @@
                 }
             }
         }
+        
     },
     "components": {
         "schemas": {
@@ -564,6 +573,7 @@
                 }
                     
             },
+
             "UpdateUserRequest": {
                 "type": "object",
                 "properties": {
@@ -603,74 +613,73 @@
             "UpdateUserResponse": {
                 "type": "object",
                 "properties": {
-                    "user": {
-                        "type": "object",
-                        "properties": {
-                            "email": {
-                                "type": "string",
-                                "description": "User's email",
-                                "format": "email"
-                            },
-                            "name": {
-                                "type": "string",
-                                "description": "User's name",
-                                "example": "Mango"
-                            },
-                            "phone": {
-                                "type": "string",
-                                "description": "User's phone",
-                                "format": "phone",
-                                "example": "+380000000000"
-                            },
-                            "city": {
-                                "type": "string",
-                                "description": "User's city and region",
-                                "example": "Brovary, Kyiv"
-                            },
-                            "birthday": {
-                                "type": "string",
-                                "description": "User birthday",
-                                "example": "01.01.1999"
-                            },
-                            "avatarURL": {
-                                "type": "string",
-                                "description": "User avatar",
-                                "example": "https://as1.ftcdn.net/v2/jpg/02/59/39/46/1000_F_259394679_GGA8JJAEkukYJL9XXFH2JoC3nMguBPNH.jpg"
-                            }
-                        }
+                    "email": {
+                        "type": "string",
+                        "description": "User's email",
+                        "format": "email"
+                    },
+                    "name": {
+                        "type": "string",
+                        "description": "User's name",
+                        "example": "Mango"
+                    },
+                    "phone": {
+                        "type": "string",
+                        "description": "User's phone",
+                        "format": "phone",
+                        "example": "+380000000000"
+                    },
+                    "city": {
+                        "type": "string",
+                        "description": "User's city and region",
+                        "example": "Brovary, Kyiv"
+                    },
+                    "birthday": {
+                        "type": "string",
+                        "description": "User birthday",
+                        "example": "01.01.1999"
+                    },
+                    "avatarURL": {
+                        "type": "string",
+                        "description": "User avatar",
+                        "example": "https://as1.ftcdn.net/v2/jpg/02/59/39/46/1000_F_259394679_GGA8JJAEkukYJL9XXFH2JoC3nMguBPNH.jpg"
                     }
                 }
             },
 
             "AddPetRequest": {
                 "type": "object",
-                "required": ["name", "birthday", "breed", "coments", "avatar"],
+                "required": ["name", "birthday", "breed", "coments", "avatarURL"],
                 "properties": {
                     "name": {
                         "type": "string",
-                        "description": "Pets name",
-                        "example": "Gori"
+                        "description": "Pet name",
+                        "example": "Roky"
                     },
                     "birthday": {
                         "type": "string",
-                        "description": "Pets birthday",
-                        "example": "20.05.2020"
+                        "description": "Pet of birthday",
+                        "example": "01.01.2022"
                     },
                     "breed": {
                         "type": "string",
-                        "description": "Pets breed",
-                        "example": "huski"
+                        "description": "Breed of dogs",
+                        "example": "beagle"
+                    },
+                    "avatarURL": {
+                        "type": "string",
+                        "description": "image pet",
+                        "example": "https://www.akc.org/wp-content/uploads/2016/06/Beagle-standing-in-a-frosty-field-on-a-cold-morning.jpg"
                     },
                     "comments": {
                         "type": "string",
                         "description": "comments",
-                        "example": "super doggy"
+                        "example": "Beagles were bred for hunting"
                     },
-                    "avatar": {
+                    "owner": {
                         "type": "string",
-                        "format": "binary",
-                        "description": "Pet image",
-                        "example": "image.jpeg"
+                        "description": "ID owner",
+                        "example": "63b2b7eebcef138dfe918e73"
                     }
                 }
             },
@@ -685,61 +694,51 @@
                     "name": {
                         "type": "string",
                         "description": "Pet name",
-                        "example": "Gori"
+                        "example": "Roky"
                     },
                     "birthday": {
                         "type": "string",
                         "description": "Pet of birthday",
-                        "example": "20.05.2020"
+                        "example": "01.01.2022"
                     },
                     "breed": {
                         "type": "string",
-                        "description": "Pet breed",
-                        "example": "huski"
+                        "description": "Breed of dogs",
+                        "example": "beagle"
                     },
                     "avatarURL": {
                         "type": "string",
-                        "description": "image your pet",
-                        "example": "https://res.cloudinary.com/dsrjlhmr8/image/upload/v1672825045/acvvewo9t58ojoytnaks.jpg"
+                        "description": "image pet",
+                        "example": "https://www.akc.org/wp-content/uploads/2016/06/Beagle-standing-in-a-frosty-field-on-a-cold-morning.jpg"
                     },
                     "comments": {
                         "type": "string",
                         "description": "comments",
-                        "example": "super doggy"
+                        "example": "Beagles were bred for hunting"
                     },
                     "owner": {
                         "type": "string",
-                        "description": "ID owner this pet",
-                        "example": "63b420f8613598919c6a71a8"
-                    },
-                    "createdAt": {
-                        "type": "string",
-                        "description": "date of creation",
-                        "example": "2023-01-04T09:37:25.604Z"
-                    },
-                    "updatedAt": {
-                        "type": "string",
-                        "description": "date of update",
-                        "example": "2023-01-04T09:37:25.604Z"
+                        "description": "ID owner",
+                        "example": "63b2b7eebcef138dfe918e73"
                     }
                 }
             },
+
             "RemovePetResponse": {
                 "type": "object",
                 "properties": {
                     "message": {
                         "type": "string",
-                        "description": "message about deleted",
-                        "example": "pet with name 'Gogi' has been deleted"
+                        "description": "message",
+                        "example": "The pet 'Roky' has been removed"
                     },
                     "id": {
                         "type": "string",
-                        "description": "id deleted pet",
-                        "example": "pet with name 'Gogi' has been deleted"
+                        "description": "id",
+                        "example": "63b548d5471bb460e28dc813"
                     }
                 }
             },
-
 
 
             "FriendsResponse": {
@@ -849,6 +848,7 @@
                     }
                 }
             },
+
 
             "NewsResponse": {
                 "type": "object",

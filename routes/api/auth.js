@@ -6,7 +6,7 @@ const {
     registerSchema,
     loginSchema,
     updateUserSchema,
-} = require('../../schemas');
+} = require('../../schemas/auth');
 
 const router = express.Router();
 

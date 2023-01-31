@@ -133,7 +133,7 @@
             }
         },
 
-        "/user": {
+        "/user/current": {
             "get": {
                 "tags": ["User"],
                 "summary": "User info and his pets info",
@@ -159,7 +159,10 @@
                         "content": {}
                     }
                 }
-            },
+            }
+        },
+
+        "/user/:userID": {
             "patch": {
                 "tags": ["User"],
                 "summary": "Update user info",
@@ -197,6 +200,96 @@
                     },
                     "403": {
                         "description": "Invalid token",
+                        "content": {}
+                    }
+                }
+            }
+        },
+
+        "/user/pets": {
+            "post": {
+                "tags": ["User"],
+                "summary": "Add User pets",
+                "description": "Add User pets",
+                "parameters": [],
+                "security": [{ "Bearer": [] }],
+                "requestBody": {
+                    "description": "Pets object",
+                    "required": true,
+                    "content": {
+                        " multipart/form-data": {
+                            "schema": {
+                                "$ref": "#/components/schemas/AddPetRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Create",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/AddPetResponse"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad request",
+                        "content": {}
+                    },
+                    "401": {
+                        "description": "Not authorized.Please,provide a token",
+                        "content": {}
+                    },
+                    "403": {
+                        "description": "Invalid token",
+                        "content": {}
+                    }
+                }
+            }
+        },
+        "/user/pets/{id}": {
+            "delete": {
+                "tags": ["User"],
+                "summary": "Delete User pets",
+                "description": "Delete User pets",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "User pets Id",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "security": [{ "Bearer": [] }],
+                "responses": {
+                    "200": {
+                        "description": "Saccses",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/RemovePetResponse"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Not valid ID",
+                        "content": {}
+                    },
+                    "401": {
+                        "description": "Not authorized.Please,provide a token",
+                        "content": {}
+                    },
+                    "403": {
+                        "description": "Invalid token",
+                        "content": {}
+                    },
+                    "404": {
+                        "description": "failure, pet with id not found",
                         "content": {}
                     }
                 }
@@ -274,6 +367,7 @@
     },
     "components": {
         "schemas": {
+
             "RegistrationRequest": {
                 "type": "object",
                 "required": ["email", "password", "name", "city", "phone"],
@@ -380,6 +474,7 @@
                 }
             },
 
+
             "UserInfoResponse": {
                 "type": "object",
                 "properties": {
@@ -460,18 +555,8 @@
                                 },
                                 "owner": {
                                     "type": "string",
-                                    "description": "ID owner this pet",
+                                    "description": "ID owner",
                                     "example": "63b2b7eebcef138dfe918e73"
-                                },
-                                "createdAt": {
-                                    "type": "string",
-                                    "description": "date of creation",
-                                    "example": "2022-01-04T09:37:25.604Z"
-                                },
-                                "updatedAt": {
-                                    "type": "string",
-                                    "description": "date of update",
-                                    "example": "2022-01-04T09:37:25.604Z"
                                 }
                             }
                         }
@@ -556,6 +641,106 @@
                     }
                 }
             },
+
+            "AddPetRequest": {
+                "type": "object",
+                "required": ["name", "birthday", "breed", "coments", "avatar"],
+                "properties": {
+                    "name": {
+                        "type": "string",
+                        "description": "Pets name",
+                        "example": "Gori"
+                    },
+                    "birthday": {
+                        "type": "string",
+                        "description": "Pets birthday",
+                        "example": "20.05.2020"
+                    },
+                    "breed": {
+                        "type": "string",
+                        "description": "Pets breed",
+                        "example": "huski"
+                    },
+                    "comments": {
+                        "type": "string",
+                        "description": "comments",
+                        "example": "super doggy"
+                    },
+                    "avatar": {
+                        "type": "string",
+                        "format": "binary",
+                        "description": "Pet image",
+                        "example": "image.jpeg"
+                    }
+                }
+            },
+            "AddPetResponse": {
+                "type": "object",
+                "properties": {
+                    "_id": {
+                        "type": "string",
+                        "description": "id",
+                        "example": "63b548d5471bb460e28dc813"
+                    },
+                    "name": {
+                        "type": "string",
+                        "description": "Pet name",
+                        "example": "Gori"
+                    },
+                    "birthday": {
+                        "type": "string",
+                        "description": "Pet of birthday",
+                        "example": "20.05.2020"
+                    },
+                    "breed": {
+                        "type": "string",
+                        "description": "Pet breed",
+                        "example": "huski"
+                    },
+                    "avatarURL": {
+                        "type": "string",
+                        "description": "image your pet",
+                        "example": "https://res.cloudinary.com/dsrjlhmr8/image/upload/v1672825045/acvvewo9t58ojoytnaks.jpg"
+                    },
+                    "comments": {
+                        "type": "string",
+                        "description": "comments",
+                        "example": "super doggy"
+                    },
+                    "owner": {
+                        "type": "string",
+                        "description": "ID owner this pet",
+                        "example": "63b420f8613598919c6a71a8"
+                    },
+                    "createdAt": {
+                        "type": "string",
+                        "description": "date of creation",
+                        "example": "2023-01-04T09:37:25.604Z"
+                    },
+                    "updatedAt": {
+                        "type": "string",
+                        "description": "date of update",
+                        "example": "2023-01-04T09:37:25.604Z"
+                    }
+                }
+            },
+            "RemovePetResponse": {
+                "type": "object",
+                "properties": {
+                    "message": {
+                        "type": "string",
+                        "description": "message about deleted",
+                        "example": "pet with name 'Gogi' has been deleted"
+                    },
+                    "id": {
+                        "type": "string",
+                        "description": "id deleted pet",
+                        "example": "pet with name 'Gogi' has been deleted"
+                    }
+                }
+            },
+
+
 
             "FriendsResponse": {
                 "type": "object",

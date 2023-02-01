@@ -7,6 +7,7 @@ const updateUserDataSchema = require('./user/updateUserDataSchema');
 const petSchema = require('./user/petSchema');
 
 // notices
+const addNoticeSchema = require('./notices/addNoticeSchema');
 
 
 module.exports = {
@@ -14,5 +15,7 @@ module.exports = {
     loginSchema,
 
     updateUserDataSchema,
-    petSchema
+    petSchema,
+
+    addNoticeSchema
 };

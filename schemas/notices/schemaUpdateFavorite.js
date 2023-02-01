@@ -1,8 +1,8 @@
-const Joi = require('joi');
+// const Joi = require('joi');
 
-// Joi схема на обновление поля favorite
-const schemaUpdateFavorite = Joi.object({
-  favorite: Joi.boolean().required(),
-});
+// // Joi схема на обновление поля favorite
+// const schemaUpdateFavorite = Joi.object({
+//   favorite: Joi.boolean().required(),
+// });
 
-module.exports = schemaUpdateFavorite;
+// module.exports = schemaUpdateFavorite;

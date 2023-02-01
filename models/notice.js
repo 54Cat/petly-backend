@@ -1,11 +1,6 @@
 const { Schema, model } = require('mongoose');
-const Joi = require('joi');
 
-const { handleSaveErrors } = require('../helpers')
-
-const locationRegexp = /^[a-z\d\s\-\\.\\,]*$/i;
-const categories = ['sell', 'lost', 'in good hands'];
-const sexChose = ['Male', 'Femail'];
+const { handleSaveErrors } = require('../helpers');
 
 // схемa mongoose
 const noticeSchema = new Schema({
@@ -26,7 +21,7 @@ const noticeSchema = new Schema({
     },
     location: {
         type: String,
-        match: locationRegexp,
+        match: /^[a-z\d\s\-\\.\\,]*$/i,
     },
     comments: {
         type: String,
@@ -36,11 +31,11 @@ const noticeSchema = new Schema({
     },
     sex: {
         type: String, 
-        enum: sexChose,   
+        enum: ['Male', 'Femail'],   
     },
     category: {
         type: String,
-        enum: categories,
+        enum: ['sell', 'lost', 'in good hands'],
         required: true,
     },
     imageURL: {
@@ -61,30 +56,7 @@ const noticeSchema = new Schema({
 // схема бросает ошибку с нужным статусом
 noticeSchema.post("save", handleSaveErrors);
 
-// Joi схема на добавление данных в поля 
-const addNoticeSchema = Joi.object({
-    title: Joi.string().trim().min(2).max(48).required(),
-    name: Joi.string().trim().min(2).max(16).required(),
-    birthdate: Joi.date().required(),
-    breed: Joi.string().min(2).max(24).required(),
-    location: Joi.string().trim().pattern(locationRegexp).required(),
-    comments: Joi.string().trim().min(8).max(120).required(),
-    // price: Joi.number().positive(),
-    price: Joi.number().greater(Joi.ref('0')).required(),
-    category: Joi.string().valid(...categories).required(),
-    sex: Joi.string().valid(...sexChose).required(),
-    imageURL: Joi.string().required(),
-    
-});
-
-// Joi схема на обновление поля favorite
-const schemaUpdateFavorite = Joi.object({
-  favorite: Joi.boolean().required(),
-});
-
-const schemas = { addNoticeSchema, schemaUpdateFavorite };
-
 // создаём модель на основе mongoose схемы для коллекции petly
 const Notice = model('petly', noticeSchema)
 
-module.exports = { Notice, schemas };
+module.exports = { Notice };

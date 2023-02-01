@@ -2,7 +2,7 @@ const express = require('express');
 const { users: ctrl } = require('../../controllers');
 const { ctrlWrapper } = require('../../helpers');
 const { validateBody, authenticate } = require('../../middlewares');
-const { updateUserDataSchema, petSchema } = require('../../schemas');
+const { user: schema } = require('../../schemas');
 
 const router = express.Router();
 
@@ -12,14 +12,14 @@ router.get('/current', authenticate, ctrlWrapper(ctrl.getCurrent));
 router.patch(
     '/:contactId',
     authenticate,
-    validateBody(updateUserDataSchema),
+    validateBody(schema.updateUserDataSchema),
     ctrlWrapper(ctrl.updateUserData)
 );
 
 router.post(
     '/pets',
     authenticate,
-    validateBody(petSchema),
+    validateBody(schema.petSchema),
     ctrlWrapper(ctrl.addPet)
 );
 

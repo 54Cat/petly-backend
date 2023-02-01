@@ -1,18 +1,10 @@
-// auth
-const registerSchema = require('./auth/registerSchema');
-const loginSchema = require('./auth/loginSchema');
-
-// users
-const updateUserDataSchema = require('./user/updateUserDataSchema');
-const petSchema = require('./user/petSchema');
-
-// notices
+const auth = require('./auth')
+const notices = require('./notices')
+const user = require('./user')
 
 
 module.exports = {
-    registerSchema,
-    loginSchema,
-
-    updateUserDataSchema,
-    petSchema
+    auth,
+    notices,
+    user
 };

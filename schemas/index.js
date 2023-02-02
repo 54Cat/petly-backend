@@ -1,7 +1,9 @@
-const loginSchema = require('./loginSchema');
-const registerSchema = require('./registerSchema');
+const auth = require('./auth')
+const notices = require('./notices')
+const user = require('./user')
 
 module.exports = {
-    loginSchema,
-    registerSchema,
+    auth,
+    notices,
+    user
 };

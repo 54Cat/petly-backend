@@ -2,7 +2,7 @@
     "openapi": "3.0.0",
     "info": {
         "version": "0.0.1",
-        "title": "Swagger UI Petly ",
+        "title": "Swagger Petly ",
         "description": "API Documents for Petly Server"
     },
     "consumes": ["application/json", "multipart/form-data"],

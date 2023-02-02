@@ -6,7 +6,6 @@ const { SECRET_KEY } = process.env;
 
 const register = async (req, res) => {
     const { email, password, name, city, phone } = req.body;
-    console.log(email);
     const user = await User.findOne({ email });
     if (user) {
         throw RequestError(409, 'Email in use');

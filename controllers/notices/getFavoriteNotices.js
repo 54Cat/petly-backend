@@ -3,8 +3,8 @@ const { User } = require('../../models');
 
 const getFavoriteNotices = async (req, res) => {
     const { _id } = req.user;    
-    const user = await User.findById(_id);       
-    const idArray = user.favorites.map(favorite => {return favorite.toString()});     
+    const user = await User.findById(_id);
+    const idArray = user.favorites.map(favorite => { return favorite.toString() });   
     const favorites = await Notice.find({ _id: idArray });    
     if (!favorites) {       
         const error = new Error();

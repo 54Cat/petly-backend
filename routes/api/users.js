@@ -9,7 +9,7 @@ const router = express.Router();
 router.get('/', authenticate, ctrlWrapper(ctrl.getCurrent));
 
 router.patch(
-    '/:contactId',
+    '/:userId',
     authenticate,
     validateBody(schema.updateUserDataSchema),
     ctrlWrapper(ctrl.updateUserData)

@@ -6,8 +6,6 @@ const deleteNotice = require('./deleteNotice');
 const getFavoriteNotices = require('./getFavoriteNotices');
 const addFavoriteNotice = require('./addFavoriteNotice');
 
-
-
 module.exports = {    
     getNoticesByCategory,
     getNoticeById,
@@ -16,5 +14,4 @@ module.exports = {
     deleteNotice,
     getFavoriteNotices,
     addFavoriteNotice
-    
 }

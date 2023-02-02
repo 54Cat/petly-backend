@@ -12,7 +12,7 @@ const noticeSchema = new Schema({
         type: String,
         required: [true, 'Set name for pet'],
     },
-    birthdate: {
+    birthday: {
         type: Date,
         default: Date.now,
     },
@@ -35,7 +35,7 @@ const noticeSchema = new Schema({
     },
     category: {
         type: String,
-        enum: ['sell', 'lost', 'in_good_hands'],
+        enum: ['sell', 'lost-found', 'for-free'],
         required: true,
     },
     imageURL: {

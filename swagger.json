@@ -7,7 +7,7 @@
     },
     "consumes": ["application/json", "multipart/form-data"],
     "produces": ["application/json"],
-    "servers": [{ "url": "https://petly-backend-23cb.onrender.com/api" }],
+    "servers": [{ "url": "http://localhost:4000/api" }],
     "tags": [
         {
             "name": "Auth",
@@ -133,7 +133,7 @@
             }
         },
 
-        "/user/current": {
+        "/user": {
             "get": {
                 "tags": ["User"],
                 "summary": "User info and his pets info",
@@ -370,14 +370,14 @@
             }
         },
 
-        "/notices/{categoryName}": {
+        "/notices/{category}": {
             "get": {
                 "tags": ["Notices"],
                 "summary": "Notices by category",
                 "parameters": [
                     {
-                        "in": "query",
-                        "name": "categoryName",
+                        "in": "path",
+                        "name": "category",
                         "required": false,
                         "description": "Category list: [sell, lost-found, for-free]",
                         "type": "string"
@@ -420,7 +420,9 @@
                         "content": {}
                     }
                 }
-            },
+            }
+        },
+        "/notices": {
             "post": {
                 "tags": ["Notices"],
                 "summary": "Add notices",
@@ -430,7 +432,7 @@
                     "description": "New notices",
                     "required": true,
                     "content": {
-                        "multipart/form-data": {
+                        "application/json": {
                             "schema": {
                                 "$ref": "#/components/schemas/NoticeAddRequest"
                             }
@@ -461,82 +463,7 @@
                         "content": {}
                     }
                 }
-            }
-        },
-        "/notices/{id}": {
-            "get": {
-                "tags": ["Notices"],
-                "summary": "Get one notice by ID",
-                "parameters": [
-                    {
-                        "in": "path",
-                        "name": "id",
-                        "required": true,
-                        "description": "Notice Id",
-                        "type": "string"
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "Success",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/GetOneNoticeResponse"
-                                }
-                            }
-                        }
-                    },
-                    "400": {
-                        "description": "Not valid ID",
-                        "content": {}
-                    }
-                }
             },
-            "delete": {
-                "tags": ["Notices"],
-                "summary": "Delete notice by ID",
-                "parameters": [
-                    {
-                        "in": "path",
-                        "name": "id",
-                        "required": true,
-                        "description": "Notice Id",
-                        "type": "string"
-                    }
-                ],
-                "security": [{ "Bearer": [] }],
-                "responses": {
-                    "200": {
-                        "description": "Success",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/RemoveNoticeResponse"
-                                }
-                            }
-                        }
-                    },
-                    "400": {
-                        "description": "Not valid ID",
-                        "content": {}
-                    },
-                    "401": {
-                        "description": "Unauthorized",
-                        "content": {}
-                    },
-                    "403": {
-                        "description": "Invalid token",
-                        "content": {}
-                    },
-                    "404": {
-                        "description": "Not found",
-                        "content": {}
-                    }
-                }
-            }
-        },
-        "/notices/own": {
             "get": {
                 "tags": ["Notices"],
                 "summary": "Get all users notices",
@@ -584,6 +511,81 @@
                     },
                     "403": {
                         "description": "Invalid token",
+                        "content": {}
+                    }
+                }
+            }
+        },
+        "/notices/getOne/{noticeId}": {
+            "get": {
+                "tags": ["Notices"],
+                "summary": "Get one notice by ID",
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "noticeId",
+                        "required": true,
+                        "description": "Notice Id",
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/GetOneNoticeResponse"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Not valid ID",
+                        "content": {}
+                    }
+                }
+            }
+        },
+         "/notices/{noticeId}": {
+            "delete": {
+                "tags": ["Notices"],
+                "summary": "Delete notice by ID",
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "id",
+                        "required": true,
+                        "description": "Notice Id",
+                        "type": "string"
+                    }
+                ],
+                "security": [{ "Bearer": [] }],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/RemoveNoticeResponse"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Not valid ID",
+                        "content": {}
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "content": {}
+                    },
+                    "403": {
+                        "description": "Invalid token",
+                        "content": {}
+                    },
+                    "404": {
+                        "description": "Not found",
                         "content": {}
                     }
                 }
@@ -643,14 +645,14 @@
             }
         },
 
-        "/notices/addFavorite/{id}": {
+        "/notices/favorite/{noticeId}": {
             "patch": {
                 "tags": ["Notices"],
                 "summary": "Add notice to favorite",
                 "parameters": [
                     {
                         "in": "path",
-                        "name": "id",
+                        "name": "noticeId",
                         "required": true,
                         "description": "User Id",
                         "type": "string"
@@ -686,57 +688,13 @@
                     }
                 }
             }
-        },
-        "/notices/removeFavorite/{id}": {
-            "patch": {
-                "tags": ["Notices"],
-                "summary": "Remove notice favorite",
-                "parameters": [
-                    {
-                        "in": "path",
-                        "name": "id",
-                        "required": true,
-                        "description": "User Id",
-                        "type": "string"
-                    }
-                ],
-                "security": [{ "Bearer": [] }],
-                "responses": {
-                    "200": {
-                        "description": "Success",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/RemoveNoticeFromFavoriteResponse"
-                                }
-                            }
-                        }
-                    },
-                    "400": {
-                        "description": "Not valid ID",
-                        "content": {}
-                    },
-                    "401": {
-                        "description": "Unauthorized",
-                        "content": {}
-                    },
-                    "403": {
-                        "description": "Invalid token",
-                        "content": {}
-                    },
-                    "409": {
-                        "description": "Conflict",
-                        "content": {}
-                    }
-                }
-            }
         }
     },
     "components": {
         "schemas": {
             "RegistrationRequest": {
                 "type": "object",
-                "required": ["email", "password", "name", "city", "phone"],
+                "required": ["email", "password", "name", "city_region", "phone"],
                 "properties": {
                     "email": {
                         "type": "string",
@@ -759,7 +717,7 @@
                         "format": "phone",
                         "example": "+380000000000"
                     },
-                    "city": {
+                    "city_region": {
                         "type": "string",
                         "description": "User's city and region",
                         "example": "Brovary, Kyiv"
@@ -1263,7 +1221,7 @@
                                     "example": "Sem"
                                 },
                                 "birthday": {
-                                    "type": "string",
+                                    "type": "data",
                                     "description": "Pets birthday",
                                     "example": "02.02.2020"
                                 },
@@ -1329,7 +1287,7 @@
                     "category": {
                         "type": "string",
                         "description": "Category by notice on of [sell,lost,in good hands]",
-                        "example": "Sell"
+                        "example": "sell"
                     },
                     "title": {
                         "type": "string",
@@ -1353,8 +1311,8 @@
                     },
                     "sex": {
                         "type": "string",
-                        "description": "Sex list: [male, female]",
-                        "example": "female"
+                        "description": "Sex list: [Male, Female]",
+                        "example": "Female"
                     },
                     "location": {
                         "type": "string",

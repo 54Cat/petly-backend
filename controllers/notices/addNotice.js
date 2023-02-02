@@ -1,9 +1,10 @@
-const { Notice } = require('../../models/notice')
+const { Notice } = require('../../models');
 
-const addNotice = async (req, res) => {
-    const newNotice = await Notice.create(...req.body);
-
-    res.status(201).json(newNotice)
-}
+const addNotice = async (req, res) => {    
+    const { _id } = req.user;
+    const { body } = req;
+    const newNotice = await Notice.create({ ...body, owner: _id });
+    res.status(201).json(newNotice);
+};
 
 module.exports = addNotice;

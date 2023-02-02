@@ -35,7 +35,7 @@ const noticeSchema = new Schema({
     },
     category: {
         type: String,
-        enum: ['sell', 'lost', 'in good hands'],
+        enum: ['sell', 'lost', 'in_good_hands'],
         required: true,
     },
     imageURL: {
@@ -57,6 +57,6 @@ const noticeSchema = new Schema({
 noticeSchema.post("save", handleSaveErrors);
 
 // создаём модель на основе mongoose схемы для коллекции petly
-const Notice = model('petly', noticeSchema)
+const Notice = model('notice', noticeSchema)
 
-module.exports = { Notice };
+module.exports = Notice ;

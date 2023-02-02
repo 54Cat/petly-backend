@@ -6,8 +6,7 @@ const { user: schema } = require('../../schemas');
 
 const router = express.Router();
 
-router.get('/current', authenticate, ctrlWrapper(ctrl.getCurrent));
-
+router.get('/', authenticate, ctrlWrapper(ctrl.getCurrent));
 
 router.patch(
     '/:contactId',
@@ -24,7 +23,5 @@ router.post(
 );
 
 router.delete('/pets/:petId', authenticate, ctrlWrapper(ctrl.deletePet));
-
-router.get('/pets', authenticate, ctrlWrapper(ctrl.getAllPets));
 
 module.exports = router;

@@ -4,7 +4,7 @@ const registerSchema = Joi.object({
     password: Joi.string().min(7).max(32).required(),
     email: Joi.string().email().required(),
     name: Joi.string().required(),
-    city_region: Joi.string()
+    city: Joi.string()
         .required()
         .pattern(/[A-Z][a-z]+, [A-Z][a-z]*/),
     phone: Joi.string()

@@ -19,6 +19,6 @@ const { validateBody, authenticate } = require('../../middlewares');
 
     router.delete('/:noticeId', authenticate, ctrlWrapper(ctrl.deleteNotice));
 
-    router.get('/favorite/:noticeId', authenticate, ctrlWrapper(ctrl.addFavoriteNotice));
+    router.get('/favorite/:noticeId', authenticate, ctrlWrapper(ctrl.updataFavoriteNotice));
 
 module.exports = router;

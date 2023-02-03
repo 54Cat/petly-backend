@@ -1,7 +1,7 @@
 const { User } = require('../../models');
 // const { RequestError } = require('../../helpers');
 
-const addFavoriteNotice = async (req, res) => {
+const updataFavoriteNotice = async (req, res) => {
     const { noticeId } = req.params;
     const { _id } = req.user;
     const user = await User.findById(_id);
@@ -19,4 +19,4 @@ const addFavoriteNotice = async (req, res) => {
     res.status(200).json({message: "Notice added to your favorites"});
 };
 
-module.exports = addFavoriteNotice;
+module.exports = updataFavoriteNotice;

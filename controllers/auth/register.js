@@ -1,14 +1,14 @@
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const { User } = require('../../models');
-const { RequestError } = require('../../helpers');
+const  {RequestError}  = require('../../helpers');
 const { SECRET_KEY } = process.env;
 
 const register = async (req, res) => {
     const { email, password, name, city, phone } = req.body;
-    console.log(email);
     const user = await User.findOne({ email });
     if (user) {
+        console.log(email);
         throw RequestError(409, 'Email in use');
     }
     if (password.length < 7) {

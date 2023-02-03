@@ -2,7 +2,6 @@ const { Notice } = require('../../models');
 const { RequestError } = require('../../helpers');
 
 const getUsersNotices = async (req, res) => {
-    console.log(req.user);
     const { _id } = req.user;
     const notices = await Notice.find({ owner: _id });
     if (!notices) {        

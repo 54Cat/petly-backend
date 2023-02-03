@@ -4,9 +4,8 @@ const getUsersNotices = require('./getUsersNotices');
 const addNotice = require('./addNotice');
 const deleteNotice = require('./deleteNotice');
 const getFavoriteNotices = require('./getFavoriteNotices');
-const addFavoriteNotice = require('./addFavoriteNotice');
 const findNotice = require('./findNotice');
-
+const updataFavoriteNotice = require('./updataFavoriteNotice');
 
 module.exports = {    
     getNoticesByCategory,
@@ -15,7 +14,6 @@ module.exports = {
     addNotice,
     deleteNotice,
     getFavoriteNotices,
-    addFavoriteNotice,
     findNotice,
-    
+    updataFavoriteNotice
 }

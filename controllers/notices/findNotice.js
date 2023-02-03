@@ -1,7 +1,7 @@
 const { Notice } = require('../../models');
 const { RequestError } = require('../../helpers');
 
-const getTitleNotice = async (req, res) => {
+const findNotice = async (req, res) => {
 
     Notice.createIndex({ title: "text" });
     const query = { $text: { $search: "" } };
@@ -20,4 +20,4 @@ const getTitleNotice = async (req, res) => {
 
 }
 
-module.exports = getTitleNotice;
+module.exports = findNotice;

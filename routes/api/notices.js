@@ -21,6 +21,6 @@ router.get('/favorite', authenticate, ctrlWrapper(ctrl.getFavoriteNotices));
 
 router.get('/favorite/:noticeId', authenticate, ctrlWrapper(ctrl.addFavoriteNotice));
 
-router.get('/', ctrlWrapper(ctrl.getTitleNotice));
+router.get('/', ctrlWrapper(ctrl.findNotice));
 
 module.exports = router;

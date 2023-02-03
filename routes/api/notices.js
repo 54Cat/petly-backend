@@ -17,6 +17,8 @@ const { validateBody, authenticate } = require('../../middlewares');
 
     router.post('/', authenticate, validateBody(schema.addNoticeSchema), ctrlWrapper(ctrl.addNotice))
 
+    router.get('/', ctrlWrapper(ctrl.findNotice));
+
     router.delete('/:noticeId', authenticate, ctrlWrapper(ctrl.deleteNotice));
 
     router.get('/favorite/:noticeId', authenticate, ctrlWrapper(ctrl.updataFavoriteNotice));

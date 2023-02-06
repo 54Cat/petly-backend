@@ -16,7 +16,7 @@ const addNoticeSchema = Joi.object({
     // price: Joi.number().greater(Joi.ref('0')).required(),
     category: Joi.string().valid(...categories).required(),
     sex: Joi.string().valid(...sexChose).required(),
-    imageURL: Joi.string().required(),
+    imageURL: Joi.string(),
     
 });
 

@@ -14,6 +14,10 @@ const petSchema = new Schema({
         type: String,
         required: [true, 'Set breed of pet'],
     },
+    photoURL: {
+        type: String,
+        required: [true, 'Set photo of pet'],
+    },
     comments: {
         type: String,
     },

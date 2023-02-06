@@ -11,7 +11,7 @@ router.get('/', authenticate, ctrlWrapper(ctrl.getCurrent));
 router.patch(
     '/:userId',
     authenticate,
-    upload.single('profile-file'),
+    upload.single('avatar'),
     validateBody(schema.updateUserDataSchema),
     ctrlWrapper(ctrl.updateUserData)
 );
@@ -19,6 +19,7 @@ router.patch(
 router.post(
     '/pets',
     authenticate,
+    upload.single('myPetsPhoto'),
     validateBody(schema.petSchema),
     ctrlWrapper(ctrl.addPet)
 );

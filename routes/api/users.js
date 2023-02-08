@@ -9,7 +9,7 @@ const router = express.Router();
 router.get('/', authenticate, ctrlWrapper(ctrl.getCurrent));
 
 router.patch(
-    '/:userId',
+    '/',
     authenticate,
     upload.single('avatar'),
     validateBody(schema.updateUserDataSchema),

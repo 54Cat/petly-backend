@@ -6,6 +6,7 @@ const updateUserDataSchema = Joi.object({
     birthday: Joi.date().format('DD.MM.YYYY').utc(),
     city: Joi.string().pattern(/[A-Z][a-z]+, [A-Z][a-z]*/),
     phone: Joi.string().pattern(/^\+380\d{9}$/, 'numbers'),
+    avatarURL: Joi.string()
 });
 
 module.exports = updateUserDataSchema;

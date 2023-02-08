@@ -136,7 +136,7 @@
         "/user": {
             "get": {
                 "tags": ["User"],
-                "summary": "User info and his pets info",
+                "summary": "User info and your pets info",
                 "parameters": [],
                 "security": [{ "Bearer": [] }],
                 "responses": {
@@ -159,27 +159,17 @@
                         "content": {}
                     }
                 }
-            }
-        },
-        "/user/{userId}": {
+            },
             "patch": {
                 "tags": ["User"],
                 "summary": "Update user info",
-                "parameters": [
-                    {
-                        "in": "path",
-                        "name": "userId",
-                        "required": true,
-                        "type": "string",
-                        "description": "Users ID"
-                    }
-                ],
+                "parameters": [],
                 "security": [{ "Bearer": [] }],
                 "requestBody": {
                     "description": "User's object",
                     "required": true,
                     "content": {
-                        "multipart/form-data": {
+                        "application/json": {
                             "schema": {
                                 "$ref": "#/components/schemas/UpdateUserRequest"
                             }
@@ -212,18 +202,17 @@
                 }
             }
         },
-        "/user/pets": {
+        "/user/pet": {
             "post": {
                 "tags": ["User"],
-                "summary": "Add User pets",
-                "description": "Add User pets",
+                "summary": "Add User's pet",
                 "parameters": [],
                 "security": [{ "Bearer": [] }],
                 "requestBody": {
-                    "description": "Pets object",
+                    "description": "Pet object",
                     "required": true,
                     "content": {
-                        " multipart/form-data": {
+                        "application/json": {
                             "schema": {
                                 "$ref": "#/components/schemas/AddPetRequest"
                             }
@@ -256,11 +245,10 @@
                 }
             }
         },
-        "/user/pets/{petId}": {
+        "/user/{petId}": {
             "delete": {
                 "tags": ["User"],
-                "summary": "Delete User pets",
-                "description": "Delete User pets",
+                "summary": "Delete User's pet",
                 "parameters": [
                     {
                         "in": "path",
@@ -390,14 +378,14 @@
                         "type": "string"
                     },
                     {
-                        "in": "query",
+                        "in": "path",
                         "name": "page",
                         "required": false,
                         "description": "page number",
                         "type": "integer"
                     },
                     {
-                        "in": "query",
+                        "in": "path",
                         "name": "limit",
                         "required": false,
                         "description": "number of notices per page",
@@ -476,14 +464,14 @@
                         "type": "string"
                     },
                     {
-                        "in": "query",
+                        "in": "path",
                         "name": "page",
                         "required": false,
                         "description": "page number",
                         "type": "integer"
                     },
                     {
-                        "in": "query",
+                        "in": "path",
                         "name": "limit",
                         "required": false,
                         "description": "number of notices per page",
@@ -541,7 +529,7 @@
                         }
                     },
                     "400": {
-                        "description": "Not valid ID",
+                        "description": "Not valid id",
                         "content": {}
                     }
                 }
@@ -554,7 +542,7 @@
                 "parameters": [
                     {
                         "in": "path",
-                        "name": "id",
+                        "name": "noticeId",
                         "required": true,
                         "description": "Notice Id",
                         "type": "string"
@@ -591,7 +579,7 @@
                 }
             }
         },
-        "/notices/users/favorite": {
+        "/notices/myFavorite": {
             "get": {
                 "tags": ["Notices"],
                 "summary": "Get all user's favorite notices",
@@ -604,14 +592,14 @@
                         "type": "string"
                     },
                     {
-                        "in": "query",
+                        "in": "path",
                         "name": "page",
                         "required": false,
                         "description": "page number",
                         "type": "integer"
                     },
                     {
-                        "in": "query",
+                        "in": "path",
                         "name": "limit",
                         "required": false,
                         "description": "number of notices per page",
@@ -644,7 +632,6 @@
                 }
             }
         },
-
         "/notices/favorite/{noticeId}": {
             "patch": {
                 "tags": ["Notices"],
@@ -654,7 +641,7 @@
                         "in": "path",
                         "name": "noticeId",
                         "required": true,
-                        "description": "User Id",
+                        "description": "Notice Id",
                         "type": "string"
                     }
                 ],
@@ -665,7 +652,7 @@
                         "content": {
                             "application/json": {
                                 "schema": {
-                                    "$ref": "#/components/schemas/AddNoticeToFavoriteResponse"
+                                    "$ref": "#/components/schemas/UpdateFavoriteNoticeResponse"
                                 }
                             }
                         }
@@ -747,6 +734,16 @@
                         "type": "string",
                         "description": "User's city and region",
                         "example": "Brovary, Kyiv"
+                    },
+                    "createdAt": {
+                        "type": "string",
+                        "description": "created",
+                        "example": "2023-02-01T13:49:03.447Z"
+                    },
+                    "updatedAt": {
+                        "type": "string",
+                        "description": "updated",
+                        "example": "2023-02-01T13:49:03.447Z"
                     }
                 }
             },
@@ -838,6 +835,16 @@
                                 "type": "string",
                                 "description": "User avatar",
                                 "example": "https://as1.ftcdn.net/v2/jpg/02/59/39/46/1000_F_259394679_GGA8JJAEkukYJL9XXFH2JoC3nMguBPNH.jpg"
+                            },
+                            "createdAt": {
+                                "type": "string",
+                                "description": "created",
+                                "example": "2023-02-01T13:49:03.447Z"
+                            },
+                            "updatedAt": {
+                                "type": "string",
+                                "description": "updated",
+                                "example": "2023-02-01T13:49:03.447Z"
                             }
                         }
                     },
@@ -879,6 +886,16 @@
                                     "type": "string",
                                     "description": "ID owner",
                                     "example": "63b2b7eebcef138dfe918e73"
+                                },
+                                "createdAt": {
+                                    "type": "string",
+                                    "description": "created",
+                                    "example": "2023-02-01T13:49:03.447Z"
+                                },
+                                "updatedAt": {
+                                    "type": "string",
+                                    "description": "updated",
+                                    "example": "2023-02-01T13:49:03.447Z"
                                 }
                             }
                         }
@@ -954,6 +971,16 @@
                         "type": "string",
                         "description": "User avatar",
                         "example": "https://as1.ftcdn.net/v2/jpg/02/59/39/46/1000_F_259394679_GGA8JJAEkukYJL9XXFH2JoC3nMguBPNH.jpg"
+                    },
+                    "createdAt": {
+                        "type": "string",
+                        "description": "created",
+                        "example": "2023-02-01T13:49:03.447Z"
+                    },
+                    "updatedAt": {
+                        "type": "string",
+                        "description": "updated",
+                        "example": "2023-02-01T13:49:03.447Z"
                     }
                 }
             },
@@ -963,8 +990,7 @@
                     "name",
                     "birthday",
                     "breed",
-                    "coments",
-                    "avatarURL"
+                    "coments"
                 ],
                 "properties": {
                     "name": {
@@ -982,7 +1008,7 @@
                         "description": "Breed of dogs",
                         "example": "beagle"
                     },
-                    "avatarURL": {
+                    "photoURL": {
                         "type": "string",
                         "description": "image pet",
                         "example": "https://www.akc.org/wp-content/uploads/2016/06/Beagle-standing-in-a-frosty-field-on-a-cold-morning.jpg"
@@ -990,12 +1016,7 @@
                     "comments": {
                         "type": "string",
                         "description": "comments",
-                        "example": "Beagles were bred for hunting"
-                    },
-                    "owner": {
-                        "type": "string",
-                        "description": "ID owner",
-                        "example": "63b2b7eebcef138dfe918e73"
+                        "example": "Selling a smart dog."
                     }
                 }
             },
@@ -1010,7 +1031,7 @@
                     "name": {
                         "type": "string",
                         "description": "Pet name",
-                        "example": "Roky"
+                        "example": "Rocky"
                     },
                     "birthday": {
                         "type": "string",
@@ -1022,7 +1043,7 @@
                         "description": "Breed of dogs",
                         "example": "beagle"
                     },
-                    "avatarURL": {
+                    "photoURL": {
                         "type": "string",
                         "description": "image pet",
                         "example": "https://www.akc.org/wp-content/uploads/2016/06/Beagle-standing-in-a-frosty-field-on-a-cold-morning.jpg"
@@ -1030,12 +1051,17 @@
                     "comments": {
                         "type": "string",
                         "description": "comments",
-                        "example": "Beagles were bred for hunting"
+                        "example": "Selling a smart dog."
                     },
-                    "owner": {
+                    "createdAt": {
                         "type": "string",
-                        "description": "ID owner",
-                        "example": "63b2b7eebcef138dfe918e73"
+                        "description": "created",
+                        "example": "2023-02-01T13:49:03.447Z"
+                    },
+                    "updatedAt": {
+                        "type": "string",
+                        "description": "updated",
+                        "example": "2023-02-01T13:49:03.447Z"
                     }
                 }
             },
@@ -1046,11 +1072,6 @@
                         "type": "string",
                         "description": "message",
                         "example": "The pet 'Roky' has been removed"
-                    },
-                    "id": {
-                        "type": "string",
-                        "description": "id",
-                        "example": "63b548d5471bb460e28dc813"
                     }
                 }
             },
@@ -1203,58 +1224,58 @@
                             "properties": {
                                 "_id": {
                                     "type": "string",
-                                    "description": "ID notice",
-                                    "example": "63b6ec81f474e0269d338e9e"
+                                    "description": "id",
+                                    "example": "63b548d5471bb460e28dc813"
                                 },
                                 "category": {
                                     "type": "string",
                                     "description": "Category by notice",
-                                    "example": "Sell"
+                                    "example": "sell"
                                 },
                                 "title": {
                                     "type": "string",
                                     "description": "Title by notice",
-                                    "example": "dog sell"
+                                    "example": "Rocky is looking for a new family"
                                 },
                                 "name": {
                                     "type": "string",
-                                    "description": "Pets name",
-                                    "example": "Sem"
+                                    "description": "Pet name",
+                                    "example": "Rocky"
                                 },
                                 "birthday": {
                                     "type": "data",
-                                    "description": "Pets birthday",
-                                    "example": "02.02.2020"
+                                    "description": "Pet of birthday",
+                                    "example": "01.01.2022"
                                 },
                                 "breed": {
                                     "type": "string",
-                                    "description": "Pets breed",
-                                    "example": "whiteSnow"
+                                    "description": "Breed of dogs",
+                                    "example": "beagle"
                                 },
                                 "sex": {
                                     "type": "string",
                                     "description": "Sex list: [male, female]",
                                     "example": "female"
                                 },
-                                "location": {
+                                "place": {
                                     "type": "string",
                                     "description": "Pet location",
-                                    "example": "Kyiv,Ukraine"
+                                    "example": "Kyiv, Ukraine"
                                 },
                                 "price": {
                                     "type": "integer",
                                     "description": "Price",
                                     "example": 5000
                                 },
-                                "imageURL": {
+                                "photoURL": {
                                     "type": "string",
                                     "description": "Pet image",
-                                    "example": "https://via.placeholder.com/300.png/#FDF7F2/#111111"
+                                    "example": "https://www.akc.org/wp-content/uploads/2016/06/Beagle-standing-in-a-frosty-field-on-a-cold-morning.jpg"
                                 },
                                 "comments": {
                                     "type": "string",
                                     "description": "Comments",
-                                    "example": "Selling an awesome puppy"
+                                    "example": "Selling a smart dog."
                                 },
                                 "owner": {
                                     "type": "string",
@@ -1263,13 +1284,13 @@
                                 },
                                 "createdAt": {
                                     "type": "string",
-                                    "description": "Date of create notice",
-                                    "example": "2023-01-05T15:28:01.426Z"
+                                    "description": "created",
+                                    "example": "2023-02-01T13:49:03.447Z"
                                 },
                                 "updatedAt": {
                                     "type": "string",
-                                    "description": "Date of update notice",
-                                    "example": "2023-01-05T15:28:01.426Z"
+                                    "description": "updated",
+                                    "example": "2023-02-01T13:49:03.447Z"
                                 }
                             }
                         }
@@ -1287,28 +1308,28 @@
                 "properties": {
                     "category": {
                         "type": "string",
-                        "description": "Category by notice on of [sell,lost,in good hands]",
+                        "description": "Category by notice",
                         "example": "sell"
                     },
                     "title": {
                         "type": "string",
                         "description": "Title by notice",
-                        "example": "dog sell"
+                        "example": "Rocky is looking for a new family"
                     },
                     "name": {
                         "type": "string",
                         "description": "Pets name",
-                        "example": "Sem"
+                        "example": "Rocky"
                     },
                     "birthday": {
                         "type": "string",
-                        "description": "Pets birthday",
+                        "description": "Pet of birthday",
                         "example": "02.02.2020"
                     },
                     "breed": {
                         "type": "string",
-                        "description": "Pets breed",
-                        "example": "whiteSnow"
+                        "description": "Breed of dogs",
+                        "example": "beagle"
                     },
                     "sex": {
                         "type": "string",
@@ -1318,23 +1339,22 @@
                     "location": {
                         "type": "string",
                         "description": "Pet location",
-                        "example": "Kyiv,Ukraine"
+                        "example": "Kyiv, Ukraine"
                     },
                     "price": {
                         "type": "integer",
                         "description": "Price",
                         "example": 5000
                     },
-                    "avatar": {
+                    "imageURL": {
                         "type": "string",
-                        "format": "binary",
                         "description": "Pet image",
-                        "example": "image.jpg"
+                        "example": "https://www.akc.org/wp-content/uploads/2016/06/Beagle-standing-in-a-frosty-field-on-a-cold-morning.jpg"
                     },
                     "comments": {
                         "type": "string",
                         "description": "Comments",
-                        "example": ""
+                        "example": "Selling a smart dog."
                     }
                 }
             },
@@ -1349,37 +1369,37 @@
                     "category": {
                         "type": "string",
                         "description": "Category by notice",
-                        "example": "Sell"
+                        "example": "sell"
                     },
                     "title": {
                         "type": "string",
                         "description": "Title by notice",
-                        "example": "dog sell"
+                        "example": "Rocky is looking for a new family"
                     },
                     "name": {
                         "type": "string",
                         "description": "Pets name",
-                        "example": "Sem"
+                        "example": "Rocky"
                     },
                     "birthday": {
                         "type": "string",
-                        "description": "Pets birthday",
+                        "description": "Pet of birthday",
                         "example": "02.02.2020"
                     },
                     "breed": {
                         "type": "string",
-                        "description": "Pets breed",
-                        "example": "whiteSnow"
-                    },
-                    "sex": {
-                        "type": "string",
-                        "description": "Sex list: [male, female]",
-                        "example": "female"
+                        "description": "Breed of dogs",
+                        "example": "beagle"
                     },
                     "location": {
                         "type": "string",
                         "description": "Pet location",
-                        "example": "Kyiv,Ukraine"
+                        "example": "Kyiv, Ukraine"
+                    },
+                    "sex": {
+                        "type": "string",
+                        "description": "Sex list: [Male, Female]",
+                        "example": "Female"
                     },
                     "price": {
                         "type": "integer",
@@ -1389,56 +1409,55 @@
                     "imageURL": {
                         "type": "string",
                         "description": "Pet image",
-                        "example": "https://via.placeholder.com/300.png/#FDF7F2/#111111"
+                        "example": "https://www.akc.org/wp-content/uploads/2016/06/Beagle-standing-in-a-frosty-field-on-a-cold-morning.jpg"
                     },
                     "comments": {
                         "type": "string",
                         "description": "Comments",
-                        "example": "Selling an awesome puppy"
+                        "example": "Selling a smart dog."
                     },
                     "owner": {
                         "type": "string",
-                        "description": "ID owner notices",
+                        "description": "id owner",
                         "example": "63b420f8613598919c6a71a8"
                     },
                     "email": {
                         "type": "string",
                         "description": "User email",
-                        "example": "test@gmail.com"
+                        "example": "user1@gmail.com"
                     },
                     "phone": {
                         "type": "string",
                         "description": "User phone",
-                        "example": "+380936945352"
+                        "example": "+380000000000"
                     },
-
                     "createdAt": {
                         "type": "string",
-                        "description": "Date of create notice",
-                        "example": "2023-01-05T15:28:01.426Z"
+                        "description": "created",
+                        "example": "2023-02-01T13:49:03.447Z"
                     },
                     "updatedAt": {
                         "type": "string",
-                        "description": "Date of update notice",
-                        "example": "2023-01-05T15:28:01.426Z"
+                        "description": "updated",
+                        "example": "2023-02-01T13:49:03.447Z"
                     }
                 }
             },
-            "AddNoticeToFavoriteResponse": {
+            "UpdateFavoriteNoticeResponse": {
                 "type": "object",
                 "properties": {
                     "favorite": {
                         "type": "array",
                         "items": {
-                            "type": "string"
-                        },
-                        "description": "ID notices",
-                        "example": "[63b6ec81f474e0269d338e9e]"
+                            "type": "string",                        
+                            "description": "ID notices",
+                            "example": "[63b6ec81f474e0269d338e9e]"
+                        }
                     },
                     "message": {
                         "type": "string",
                         "description": "ID notices",
-                        "example": "Notice add to favorite"
+                        "example": "Updated Favorite Notice"
                     }
                 }
             },
@@ -1465,43 +1484,43 @@
                 "properties": {
                     "_id": {
                         "type": "string",
-                        "description": "ID notice",
+                        "description": "id",
                         "example": "63b6ec81f474e0269d338e9e"
                     },
                     "category": {
                         "type": "string",
                         "description": "Category by notice",
-                        "example": "Sell"
+                        "example": "sell"
                     },
                     "title": {
                         "type": "string",
                         "description": "Title by notice",
-                        "example": "dog sell"
+                        "example": "Rocky is looking for a new family"
                     },
                     "name": {
                         "type": "string",
                         "description": "Pets name",
-                        "example": "Sem"
+                        "example": "Rocky"
                     },
                     "birthday": {
                         "type": "string",
-                        "description": "Pets birthday",
+                        "description": "Pet of birthday",
                         "example": "02.02.2020"
                     },
                     "breed": {
                         "type": "string",
-                        "description": "Pets breed",
-                        "example": "whiteSnow"
-                    },
-                    "sex": {
-                        "type": "string",
-                        "description": "Sex list: [male, female]",
-                        "example": "female"
+                        "description": "Breed of dogs",
+                        "example": "beagle"
                     },
                     "location": {
                         "type": "string",
                         "description": "Pet location",
-                        "example": "Kyiv,Ukraine"
+                        "example": "Kyiv, Ukraine"
+                    },
+                    "sex": {
+                        "type": "string",
+                        "description": "Sex list: [Male, Female]",
+                        "example": "Female"
                     },
                     "price": {
                         "type": "integer",
@@ -1511,27 +1530,27 @@
                     "imageURL": {
                         "type": "string",
                         "description": "Pet image",
-                        "example": "https://via.placeholder.com/300.png/#FDF7F2/#111111"
+                        "example": "https://www.akc.org/wp-content/uploads/2016/06/Beagle-standing-in-a-frosty-field-on-a-cold-morning.jpg"
                     },
                     "comments": {
                         "type": "string",
                         "description": "Comments",
-                        "example": "Selling an awesome puppy"
+                        "example": "Selling a smart dog."
                     },
                     "owner": {
                         "type": "string",
-                        "description": "ID owner notices",
+                        "description": "id owner",
                         "example": "63b420f8613598919c6a71a8"
                     },
                     "createdAt": {
                         "type": "string",
-                        "description": "Date of create notice",
-                        "example": "2023-01-05T15:28:01.426Z"
+                        "description": "created",
+                        "example": "2023-02-01T13:49:03.447Z"
                     },
                     "updatedAt": {
                         "type": "string",
-                        "description": "Date of update notice",
-                        "example": "2023-01-05T15:28:01.426Z"
+                        "description": "updated",
+                        "example": "2023-02-01T13:49:03.447Z"
                     }
                 }
             },
@@ -1546,37 +1565,37 @@
                     "category": {
                         "type": "string",
                         "description": "Category by notice",
-                        "example": "Sell"
+                        "example": "sell"
                     },
                     "title": {
                         "type": "string",
                         "description": "Title by notice",
-                        "example": "dog sell"
+                        "example": "Rocky is looking for a new family"
                     },
                     "name": {
                         "type": "string",
                         "description": "Pets name",
-                        "example": "Sem"
+                        "example": "Rocky"
                     },
                     "birthday": {
                         "type": "string",
-                        "description": "Pets birthday",
+                        "description": "Pet of birthday",
                         "example": "02.02.2020"
                     },
                     "breed": {
                         "type": "string",
-                        "description": "Pets breed",
-                        "example": "whiteSnow"
-                    },
-                    "sex": {
-                        "type": "string",
-                        "description": "Sex list: [male, female]",
-                        "example": "female"
+                        "description": "Breed of dogs",
+                        "example": "beagle"
                     },
                     "location": {
                         "type": "string",
                         "description": "Pet location",
-                        "example": "Kyiv,Ukraine"
+                        "example": "Kyiv, Ukraine"
+                    },
+                    "sex": {
+                        "type": "string",
+                        "description": "Sex list: [Male, Female]",
+                        "example": "Female"
                     },
                     "price": {
                         "type": "integer",
@@ -1586,22 +1605,27 @@
                     "imageURL": {
                         "type": "string",
                         "description": "Pet image",
-                        "example": "https://via.placeholder.com/300.png/#FDF7F2/#111111"
+                        "example": "https://www.akc.org/wp-content/uploads/2016/06/Beagle-standing-in-a-frosty-field-on-a-cold-morning.jpg"
                     },
                     "comments": {
                         "type": "string",
                         "description": "Comments",
-                        "example": "Selling an awesome puppy"
+                        "example": "Selling a smart dog."
                     },
                     "owner": {
                         "type": "string",
-                        "description": "owner of notice",
-                        "example": "63bc8134b63b255e9dc342f5"
+                        "description": "id owner",
+                        "example": "63b420f8613598919c6a71a8"
+                    },
+                    "createdAt": {
+                        "type": "string",
+                        "description": "created",
+                        "example": "2023-02-01T13:49:03.447Z"
                     },
                     "updatedAt": {
                         "type": "string",
-                        "description": "Date of update notice",
-                        "example": "2023-01-05T15:28:01.426Z"
+                        "description": "updated",
+                        "example": "2023-02-01T13:49:03.447Z"
                     }
                 }
             },
@@ -1616,37 +1640,37 @@
                     "category": {
                         "type": "string",
                         "description": "Category by notice",
-                        "example": "Sell"
+                        "example": "sell"
                     },
                     "title": {
                         "type": "string",
                         "description": "Title by notice",
-                        "example": "dog sell"
+                        "example": "Rocky is looking for a new family"
                     },
                     "name": {
                         "type": "string",
                         "description": "Pets name",
-                        "example": "Sem"
+                        "example": "Rocky"
                     },
                     "birthday": {
                         "type": "string",
-                        "description": "Pets birthday",
+                        "description": "Pet of birthday",
                         "example": "02.02.2020"
                     },
                     "breed": {
                         "type": "string",
-                        "description": "Pets breed",
-                        "example": "whiteSnow"
-                    },
-                    "sex": {
-                        "type": "string",
-                        "description": "Sex list: [male, female]",
-                        "example": "female"
+                        "description": "Breed of dogs",
+                        "example": "beagle"
                     },
                     "location": {
                         "type": "string",
                         "description": "Pet location",
-                        "example": "Kyiv,Ukraine"
+                        "example": "Kyiv, Ukraine"
+                    },
+                    "sex": {
+                        "type": "string",
+                        "description": "Sex list: [Male, Female]",
+                        "example": "Female"
                     },
                     "price": {
                         "type": "integer",
@@ -1656,27 +1680,27 @@
                     "imageURL": {
                         "type": "string",
                         "description": "Pet image",
-                        "example": "https://via.placeholder.com/300.png/#FDF7F2/#111111"
+                        "example": "https://www.akc.org/wp-content/uploads/2016/06/Beagle-standing-in-a-frosty-field-on-a-cold-morning.jpg"
                     },
                     "comments": {
                         "type": "string",
                         "description": "Comments",
-                        "example": "Selling an awesome puppy"
+                        "example": "Selling a smart dog."
                     },
                     "owner": {
                         "type": "string",
-                        "description": "ID owner notices",
+                        "description": "id owner",
                         "example": "63b420f8613598919c6a71a8"
                     },
                     "createdAt": {
                         "type": "string",
-                        "description": "Date of create notice",
-                        "example": "2023-01-05T15:28:01.426Z"
+                        "description": "created",
+                        "example": "2023-02-01T13:49:03.447Z"
                     },
                     "updatedAt": {
                         "type": "string",
-                        "description": "Date of update notice",
-                        "example": "2023-01-05T15:28:01.426Z"
+                        "description": "updated",
+                        "example": "2023-02-01T13:49:03.447Z"
                     }
                 }
             },
@@ -1687,11 +1711,6 @@
                         "type": "string",
                         "description": "Message about success deleted",
                         "example": "notice with id: 63b4217e613598919c6a71ad has been deleted"
-                    },
-                    "id": {
-                        "type": "string",
-                        "description": "Id notices success deleted",
-                        "example": "63b4217e613598919c6a71ad"
                     }
                 }
             }

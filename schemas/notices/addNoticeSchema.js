@@ -2,7 +2,7 @@ const Joi = require('joi');
 
 const locationRegexp = /^[a-z\d\s\-\\.\\,]*$/i;
 const categories = ['sell', 'lost-found', 'for-free'];
-const sexChose = ['Male', 'Femail'];
+const sexChose = ['Male', 'Female'];
 
 // Joi схема на добавление данных в поля 
 const addNoticeSchema = Joi.object({

@@ -109,13 +109,13 @@
             }
         },
         "/auth/logout": {
-            "get": {
+            "post": {
                 "tags": ["Auth"],
                 "summary": "Logout user",
                 "parameters": [],
                 "security": [{ "Bearer": [] }],
                 "responses": {
-                    "200": {
+                    "204": {
                         "description": "Success",
                         "content": {
                             "application/json": {
@@ -694,7 +694,7 @@
         "schemas": {
             "RegistrationRequest": {
                 "type": "object",
-                "required": ["email", "password", "name", "city_region", "phone"],
+                "required": ["email", "password", "name", "city", "phone"],
                 "properties": {
                     "email": {
                         "type": "string",
@@ -717,7 +717,7 @@
                         "format": "phone",
                         "example": "+380000000000"
                     },
-                    "city_region": {
+                    "city": {
                         "type": "string",
                         "description": "User's city and region",
                         "example": "Brovary, Kyiv"
@@ -791,6 +791,7 @@
                 "properties": {
                     "message": {
                         "type": "string",
+                        "description": "Logout message",
                         "example": "Logout successful"
                     }
                 }

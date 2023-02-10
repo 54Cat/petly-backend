@@ -8,7 +8,7 @@ const router = express.Router();
 
 router.get('/', authenticate, ctrlWrapper(ctrl.getCurrent));
 
-router.patch('/', authenticate, upload.single('avatar'), validateBody(schema.updateUserDataSchema), ctrlWrapper(ctrl.updateUserData));
+router.patch('/update', authenticate, upload.single('avatar'), validateBody(schema.updateUserDataSchema), ctrlWrapper(ctrl.updateUserData));
 
 router.post(
     '/pet',

@@ -1,5 +1,5 @@
 const updateUserDataSchema = require('./updateUserDataSchema');
-const petSchema = require('./petSchema');
+const petSchema = require('../pet/petSchema');
 
 module.exports = {
     updateUserDataSchema,

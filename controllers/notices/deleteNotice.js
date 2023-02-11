@@ -8,11 +8,8 @@ const deleteNotice = async (req, res) => {
         _id: noticeId,
         owner: _id,
     });
-    console.log(removedNotice);
     if (!removedNotice) {       
         throw RequestError(404, 'Not found');
-        // const error = new Error;
-        // throw error(404);
     }
     res.json({
         message: 'notice deleted',

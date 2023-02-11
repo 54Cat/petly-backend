@@ -1,11 +1,8 @@
 const express = require('express')
-
-const router = express.Router();
-
 const ctrl = require('../../controllers/news/getAll')
-
 const { ctrlWrapper } = require('../../helpers')
 
+const router = express.Router();
 
 router.get('/', ctrlWrapper(ctrl))
 

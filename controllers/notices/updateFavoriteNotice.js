@@ -1,5 +1,4 @@
 const { User } = require('../../models');
-// const { RequestError } = require('../../helpers');
 
 const updateFavoriteNotice = async (req, res) => {
     const { noticeId } = req.params;
@@ -15,7 +14,6 @@ const updateFavoriteNotice = async (req, res) => {
             return;
     }
     favorites.push(noticeId);
-    console.log(favorites);
     user.save();
     res.status(200).json({message: "Notice added to your favorites", favorites});
 };

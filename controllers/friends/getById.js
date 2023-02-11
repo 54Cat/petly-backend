@@ -2,8 +2,8 @@ const { Friend } = require("../../models");
 const { HttpError } = require('../../helpers');
 
 const getById = async (req, res, next) => {
-    const { friendId } = req.params;
-    const result = await Friend.findById(friendId);
+    const { id } = req.params;
+    const result = await Friend.findById(id);
 
     if (!result) {
       throw HttpError(404, 'Not found');

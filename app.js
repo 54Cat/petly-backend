@@ -10,6 +10,7 @@ const usersRouter = require('./routes/api/users');
 const newsRouter = require("./routes/api/news");
 const noticesRouter = require("./routes/api/notices");
 const friendsRouter = require("./routes/api/friends");
+const usersPetsRouter = require("./routes/api/pets")
 
 const app = express();
 
@@ -23,6 +24,7 @@ app.use(express.urlencoded({ extended: true }));
 
 app.use('/api/auth', authRouter);
 app.use('/api/user', usersRouter);
+app.use('/api/user/pet', usersPetsRouter);
 app.use('/api/news', newsRouter)
 app.use('/api/notices', noticesRouter)
 app.use('/api/friends', friendsRouter)

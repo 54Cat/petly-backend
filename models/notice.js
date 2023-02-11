@@ -31,7 +31,7 @@ const noticeSchema = new Schema({
     },
     sex: {
         type: String, 
-        enum: ['Male', 'Femaile'],   
+        enum: ['Male', 'Female'],   
     },
     category: {
         type: String,

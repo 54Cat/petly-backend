@@ -1,7 +1,7 @@
 const getCurrent = require('./getCurrent');
 const updateUserData = require('./updateUserData');
-const addPet = require('./addPet');
-const deletePet = require('./deletePet');
+const addPet = require('../pet/addPet');
+const deletePet = require('../pet/deletePet');
 
 module.exports = {
     getCurrent,

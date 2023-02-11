@@ -1,6 +1,6 @@
 const Joi = require('joi');
 
-const petShema = Joi.object({
+const addPetSchema = Joi.object({
     name: Joi.string().alphanum().min(2).max(16).required(),
     birthday: Joi.date().required(),
     breed: Joi.string().alphanum().min(2).max(16).required(),
@@ -8,4 +8,4 @@ const petShema = Joi.object({
     photoURL: Joi.string()
 });
 
-module.exports = petShema;
+module.exports = addPetSchema;

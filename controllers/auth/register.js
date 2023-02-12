@@ -33,11 +33,12 @@ const register = async (req, res) => {
     await User.findByIdAndUpdate(result._id, { token });
 
     res.status(201).json({
-        user: {
-            id: result._id,
-            email: result.email,
-            name: result.name,
-        },
+        user,
+        //     : {
+        //     id: result._id,
+        //     email: result.email,
+        //     name: result.name,
+        // },
         token,
     });
 };

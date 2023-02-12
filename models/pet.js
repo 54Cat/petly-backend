@@ -2,11 +2,11 @@ const { Schema, SchemaTypes, model } = require('mongoose');
 const { handleSaveErrors } = require('../helpers');
 
 const petSchema = new Schema({
-    name: {
+    namePet: {
         type: String,
         required: [true, 'What is the name of this pet?'],
     },
-    birthday: {
+    birthdayPet: {
         type: Date,
         required: [true, 'Input the birthday'],
     },

@@ -22,11 +22,16 @@ const login = async (req, res) => {
     await User.findByIdAndUpdate(user._id, { token });
     res.json({
         token,
-        user: {
-            id: user._id,
-            email,
-            favorites: user.favorites,
-        },
+        user
+            // : {
+            // id: user._id,
+            // email,
+            // name,
+            // city,
+            // phone,
+            // birthday,
+            // favorites: user.favorites,
+        // },
     });
 };
 
